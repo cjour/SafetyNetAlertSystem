@@ -1,7 +1,11 @@
 package com.cjour.SafetyNetAlert.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FireStation {
 
+	private List<Person> listOfPerson = new ArrayList<Person>();
 	private String address;
 	private int station;
 	
@@ -13,6 +17,14 @@ public class FireStation {
 		super();
 		this.address = address;
 		this.station = station;
+	}
+	
+	public List<Person> getListOfPerson() {
+		return listOfPerson;
+	}
+
+	public void setListOfPerson(List<Person> listOfPerson) {
+		this.listOfPerson = listOfPerson;
 	}
 
 	public String getAddress() {

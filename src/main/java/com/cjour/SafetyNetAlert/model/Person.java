@@ -1,5 +1,6 @@
 package com.cjour.SafetyNetAlert.model;
 
+
 public class Person {
 	
 	private MedicalRecord medicalRecord;

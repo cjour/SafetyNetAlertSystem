@@ -1,46 +1,60 @@
 package com.cjour.SafetyNetAlert.repository;
 
 import java.util.ArrayList;
+
+import org.springframework.stereotype.Component;
+
 import com.cjour.SafetyNetAlert.model.FireStation;
 import com.cjour.SafetyNetAlert.model.MedicalRecord;
 import com.cjour.SafetyNetAlert.model.Person;
 import com.cjour.SafetyNetAlert.service.JSONDataHandler;
 
-
+@Component("db")
 public class Database {
 	
-	private ArrayList<Person> personList;
-	private ArrayList<FireStation> fireStationList;
-	private ArrayList<MedicalRecord> medicalRecordList;
-	
 	private final static JSONDataHandler jsonDataHandler = new JSONDataHandler();
-	
+
+	public ArrayList<Person> personList;
+	public ArrayList<FireStation> fireStationList;
+	public ArrayList<MedicalRecord> medicalRecordList;
+
+
 	public Database() {
 		this.personList = jsonDataHandler.fetchingDataFromJSONForPersons();
 		this.fireStationList = jsonDataHandler.fetchingDataFromJSONForFireStation();
 		this.medicalRecordList = jsonDataHandler.fetchingDataFromJSONForMedicalRecords();
+		this.linkMedicalRecordsToPerson();
+		this.linkFireStationToPerson();
+		this.linkPersonToFireStation();
 	}
 
-	public void showDatabaseContent() {
+	public void linkMedicalRecordsToPerson() {
 		for (Person person : personList) {
-			System.out.println(person.getFirstName() + " " 
-							 + person.getLastName() + " "
-							 + person.getAddress() + " "
-							 + person.getCity() + " "
-							 + person.getZip() + " "
-							 + person.getPhone() + " "
-							 + person.getEmail()
-							 );
+			for (MedicalRecord medicalrecord : medicalRecordList) {
+ 				if ((medicalrecord.getFirstName()).equals(person.getFirstName()) && (medicalrecord.getLastName().equals(medicalrecord.getLastName()))) {
+					person.setMedicalRecord(medicalrecord);
+				}
+			}
 		}
-		
-		for (FireStation fireStation : fireStationList) {
-			System.out.println(fireStation.getStation());
-		}
-		
-		for (MedicalRecord medicalRecord : medicalRecordList) {
-			System.out.println(medicalRecord.getMedications());
-		}	
 	}
 	
+	public void linkFireStationToPerson(){
+		for (Person person : personList) {
+			for (FireStation fireStation : fireStationList) {
+				if(person.getAddress().equals(fireStation.getAddress())){
+					person.setFireStation(fireStation);
+				}
+			}
+		}
+	}
 	
+	public void linkPersonToFireStation() {
+		for (FireStation fireStation : fireStationList) {
+			for (Person person : personList) {
+				if(person.getAddress().equals(fireStation.getAddress())){
+					fireStation.getListOfPerson().add(person);
+				}
+			}
+		}
+	}
 }
