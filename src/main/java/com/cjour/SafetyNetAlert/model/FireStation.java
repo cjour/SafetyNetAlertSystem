@@ -1,29 +1,35 @@
 package com.cjour.SafetyNetAlert.model;
 
-import java.util.ArrayList;
-
 public class FireStation {
 
-	private ArrayList<Person> listOfPersonAffiliatedToThisStation;
 	private String address;
-	private int stationNumber;
+	private int station;
 	
+	public FireStation () {
+		super();
+	}
+	
+	public FireStation(String address, int station) {
+		super();
+		this.address = address;
+		this.station = station;
+	}
+
 	public String getAddress() {
 		return address;
 	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public int getStationNumber() {
-		return stationNumber;
+
+	public int getStation() {
+		return station;
 	}
-	public void setStationNumber(int stationNumber) {
-		this.stationNumber = stationNumber;
+
+	public void setStation(int station) {
+		this.station = station;
 	}
-	public ArrayList<Person> getListOfPersonAffiliatedToThisStation() {
-		return listOfPersonAffiliatedToThisStation;
-	}
-	public void setListOfPersonAffiliatedToThisStation(ArrayList<Person> listOfPersonAffiliatedToThisStation) {
-		this.listOfPersonAffiliatedToThisStation = listOfPersonAffiliatedToThisStation;
-	}
+
+
 }
