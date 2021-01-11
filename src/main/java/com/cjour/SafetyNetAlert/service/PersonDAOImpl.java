@@ -12,6 +12,7 @@ import com.cjour.SafetyNetAlert.repository.Database;
 public class PersonDAOImpl implements PersonDAO {
 	
 	public static ArrayList<Person> persons = new Database().personList;
+	
 
 	
 	@Override
@@ -26,9 +27,9 @@ public class PersonDAOImpl implements PersonDAO {
 	}
 
 	@Override
-	public Person findDistinctByLastnameAndFirstname(String lastname, String firstname) {
+	public Person findDistinctByLastnameAndFirstname(String lastname) {
 		for (Person person : persons) {
-			if(person.getLastName() == lastname && person.getFirstName() == firstname) {
+			if(person.getLastName() == lastname) {
 				return person;
 			}
 		}

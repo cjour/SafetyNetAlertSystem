@@ -1,6 +1,6 @@
 package com.cjour.SafetyNetAlert.service;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import com.cjour.SafetyNetAlert.model.Person;
 
@@ -9,8 +9,8 @@ public interface PersonDAO {
 	public boolean addAPerson(Person person);
 	
 	//Read
-	public List<Person> findAll();
-	public Person findDistinctByLastnameAndFirstname(String lastname, String firstname);
+	public ArrayList<Person> findAll();
+	public Person findDistinctByLastnameAndFirstname(String lastname);
 	
 	//Delete
 	public boolean delete(Person person);

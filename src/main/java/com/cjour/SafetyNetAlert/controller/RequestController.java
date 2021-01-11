@@ -4,38 +4,34 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cjour.SafetyNetAlert.model.Person;
-import com.cjour.SafetyNetAlert.service.PersonDAOImpl;
+import com.cjour.SafetyNetAlert.model.*;
+import com.cjour.SafetyNetAlert.service.*;
 
 @RestController
 public class RequestController {
 	
 	@Autowired
 	PersonDAOImpl personDAO;
+	@Autowired
+	FireStationDAOImpl fireStationDAO;
+	@Autowired
+	MedicalRecordDAOImpl medicalRecordDAO;
+	
 
-	@GetMapping(value="/Persons")
+	@GetMapping(value="/person")
 	public ArrayList<Person> getPersons () {
 		return personDAO.findAll();
 	}
 	
-	@GetMapping(value="/Persons/{lastname}/{firstname}")
-	public Person getPerson (@PathVariable String lastname, @PathVariable String firstname) {
-		return personDAO.findDistinctByLastnameAndFirstname(lastname, firstname);			
+	@GetMapping(value="/irestation?stationNumber=<station_number>")
+	public ArrayList<FireStation> getFireStations () {
+		return fireStationDAO.findAll();
 	}
 	
-	@GetMapping(value="/FireStations")
-	public String getFireStations () {
-		return "Here is the list of fire stations";
-		
-	}
-	
-	@GetMapping(value="/FireStation/{id}")
-	public String getFireStation (@PathVariable int id) {
-		return "You asked for this fire station : " + id;
-		
+	@GetMapping(value="/medicalRecord")
+	public ArrayList<MedicalRecord> getMedicalRecords () {
+		return medicalRecordDAO.findAll();
 	}
 }
