@@ -25,7 +25,7 @@ public class Database {
 		this.medicalRecordList = jsonDataHandler.fetchingDataFromJSONForMedicalRecords();
 		this.linkMedicalRecordsToPerson();
 		this.linkFireStationToPerson();
-		this.linkPersonToFireStation();
+//		this.linkPersonToFireStation(); provoke a weird error in JSON rendering on get request for all person.
 	}
 
 	public void linkMedicalRecordsToPerson() {
