@@ -1,7 +1,9 @@
 package com.cjour.SafetyNetAlert.service;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-
 import org.springframework.stereotype.Repository;
 
 import com.cjour.SafetyNetAlert.model.Person;
@@ -41,5 +43,23 @@ public class PersonDAOImpl implements PersonDAO {
 		persons.remove(person);
 		return true;
 	}
-
+	
+	@Override
+	public ArrayList<Person> getChild(String address) {
+		ArrayList<Person> myListOfChild = new ArrayList<Person>();
+		for (Person person : persons) {
+			
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+			LocalDate birthdate = LocalDate.parse(person.getMedicalRecord().getBirthdate(), formatter);
+			
+			LocalDate now = LocalDate.now();
+			
+			Period period = Period.between(birthdate, now);
+			
+			if(period.getYears() <= 18 && (person.getAddress()).equals(address)) {
+				myListOfChild.add(person);
+			}
+		}
+		return myListOfChild;
+	}
 }

@@ -24,8 +24,9 @@ public class Database {
 		this.fireStationList = jsonDataHandler.fetchingDataFromJSONForFireStation();
 		this.medicalRecordList = jsonDataHandler.fetchingDataFromJSONForMedicalRecords();
 		this.linkMedicalRecordsToPerson();
+//		this.linkPersonToFireStation();
 		this.linkFireStationToPerson();
-//		this.linkPersonToFireStation(); provoke a weird error in JSON rendering on get request for all person.
+
 	}
 
 	public void linkMedicalRecordsToPerson() {
@@ -43,18 +44,19 @@ public class Database {
 			for (FireStation fireStation : fireStationList) {
 				if(person.getAddress().equals(fireStation.getAddress())){
 					person.setFireStation(fireStation);
-				}
-			}
-		}
-	}
-	
-	public void linkPersonToFireStation() {
-		for (FireStation fireStation : fireStationList) {
-			for (Person person : personList) {
-				if(person.getAddress().equals(fireStation.getAddress())){
 					fireStation.getListOfPerson().add(person);
 				}
 			}
 		}
 	}
+	
+//	public void linkPersonToFireStation() {
+//		for (FireStation fireStation : fireStationList) {
+//			for (Person person : personList) {
+//				if(person.getAddress().equals(fireStation.getAddress())){
+//					fireStation.getListOfPerson().add(person);
+//				}
+//			}
+//		}
+//	}
 }

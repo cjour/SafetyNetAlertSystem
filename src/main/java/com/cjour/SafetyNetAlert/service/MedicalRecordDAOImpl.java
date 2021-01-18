@@ -2,9 +2,12 @@ package com.cjour.SafetyNetAlert.service;
 
 import java.util.ArrayList;
 
+import org.springframework.stereotype.Repository;
+
 import com.cjour.SafetyNetAlert.model.MedicalRecord;
 import com.cjour.SafetyNetAlert.repository.Database;
 
+@Repository
 public class MedicalRecordDAOImpl implements MedicalRecordDAO {
 
 	public static ArrayList<MedicalRecord> medicalRecords = new Database().medicalRecordList;

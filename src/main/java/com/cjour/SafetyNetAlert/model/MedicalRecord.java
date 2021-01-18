@@ -2,10 +2,14 @@ package com.cjour.SafetyNetAlert.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class MedicalRecord {
 
 	private String firstName;
 	private String lastName;
+	@JsonFormat
+    (shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private String birthdate;
 	private List<String> medications;
 	private List<String> allergies;
