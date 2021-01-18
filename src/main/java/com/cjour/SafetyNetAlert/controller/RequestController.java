@@ -42,7 +42,7 @@ public class RequestController {
 	}
 	
 	@GetMapping(value="/communityEmail")
-	public ArrayList<Person> getPersonEmailByCity(@RequestParam String city) {
+	public ArrayList<PersonDTO> getPersonEmailByCity(@RequestParam String city) {
 		return personDAO.getPersons(city);
 	}
 }

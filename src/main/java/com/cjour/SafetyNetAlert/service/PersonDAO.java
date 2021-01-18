@@ -3,6 +3,7 @@ package com.cjour.SafetyNetAlert.service;
 import java.util.ArrayList;
 
 import com.cjour.SafetyNetAlert.model.Person;
+import com.cjour.SafetyNetAlert.model.PersonDTO;
 
 public interface PersonDAO {
 	//Create and Update
@@ -12,7 +13,7 @@ public interface PersonDAO {
 	public ArrayList<Person> findAll();
 	public Person findDistinctByLastnameAndFirstname(String lastname);
 	public ArrayList<Person> getChild(String address);
-	public ArrayList<Person> getPersons(String email);
+	public ArrayList<PersonDTO> getPersons(String email);
 	
 	//Delete
 	public boolean delete(Person person);
