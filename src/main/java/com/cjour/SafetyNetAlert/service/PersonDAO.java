@@ -12,6 +12,7 @@ public interface PersonDAO {
 	public ArrayList<Person> findAll();
 	public Person findDistinctByLastnameAndFirstname(String lastname);
 	public ArrayList<Person> getChild(String address);
+	public ArrayList<Person> getPersons(String email);
 	
 	//Delete
 	public boolean delete(Person person);

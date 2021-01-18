@@ -62,4 +62,15 @@ public class PersonDAOImpl implements PersonDAO {
 		}
 		return myListOfChild;
 	}
+
+	@Override
+	public ArrayList<Person> getPersons(String city) {
+		ArrayList<Person> listOfPerson = new ArrayList<Person>();
+		for (Person person : persons) {
+			if(person.getCity().equals(city)) {
+				listOfPerson.add(person);
+			}
+		}
+		return listOfPerson;
+	}
 }

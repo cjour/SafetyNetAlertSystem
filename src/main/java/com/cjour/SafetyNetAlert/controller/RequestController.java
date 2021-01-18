@@ -40,4 +40,9 @@ public class RequestController {
 	public ArrayList<MedicalRecord> getMedicalRecords () {
 		return medicalRecordDAO.findAll();
 	}
+	
+	@GetMapping(value="/communityEmail")
+	public ArrayList<Person> getPersonEmailByCity(@RequestParam String city) {
+		return personDAO.getPersons(city);
+	}
 }
