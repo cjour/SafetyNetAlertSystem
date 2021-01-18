@@ -11,9 +11,9 @@ public interface PersonDAO {
 	//Read
 	public ArrayList<Person> findAll();
 	public Person findDistinctByLastnameAndFirstname(String lastname);
+	public ArrayList<Person> getChild(String address);
 	
 	//Delete
 	public boolean delete(Person person);
-
 	
 }
