@@ -15,6 +15,7 @@ public interface PersonDAO {
 	public ArrayList<PersonDTOEmail> getEmail(String city);
 	public ArrayList<PersonDTOFireStation> getPersonRelatedToFireStation(int stationNumber);
 	public ArrayList<PersonDTOPhone> getPhoneNumberForSpecificFirestation(int station_number);
+	public ArrayList<PersonDTOAddress> getPersonRelatedToThisAddress(String address);
 	
 	//Delete
 	public boolean delete(Person person);

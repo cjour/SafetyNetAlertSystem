@@ -21,20 +21,10 @@ public class RequestController {
 	MedicalRecordDAOImpl medicalRecordDAO;
 	
 
-	@GetMapping(value="/person")
-	public ArrayList<Person> getPersons () {
-		return personDAO.findAll();
-	}
-	
 	@GetMapping(value="/childAlert")
 	public ArrayList<PersonDTOChild> getChild(@RequestParam String address){
 		return personDAO.getChild(address);	
 	}	
-	
-	@GetMapping(value="/medicalRecord")
-	public ArrayList<MedicalRecord> getMedicalRecords () {
-		return medicalRecordDAO.findAll();
-	}
 	
 	@GetMapping(value="/communityEmail")
 	public ArrayList<PersonDTOEmail> getPersonEmailByCity(@RequestParam String city) {
@@ -50,4 +40,14 @@ public class RequestController {
 	public ArrayList<PersonDTOPhone> getPhoneNumberForSpecificFirestation(@RequestParam int firestation){
 		return personDAO.getPhoneNumberForSpecificFirestation(firestation);
 	}
+	
+	@GetMapping(value="/fire")
+	public ArrayList<PersonDTOAddress> getPersonsByAddress(@RequestParam String address){
+		return personDAO.getPersonRelatedToThisAddress(address);
+	}
+	
+//	@GetMapping(value="/flood/stations")
+//
+//	@GetMapping(value="/personInfo")
+	
 }

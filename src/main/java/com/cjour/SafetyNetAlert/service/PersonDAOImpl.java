@@ -115,4 +115,27 @@ public class PersonDAOImpl implements PersonDAO {
 		}
 		return listOfPerson;
 	}
+
+	@Override
+	public ArrayList<PersonDTOAddress> getPersonRelatedToThisAddress(String address) {
+		ArrayList<PersonDTOAddress> listOfPerson = new ArrayList<>();
+		for (Person person : persons) {
+			if(person.getAddress().equals(address)) {
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+				LocalDate birthdate = LocalDate.parse(person.getMedicalRecord().getBirthdate(), formatter);
+				
+				Period period = Period.between(birthdate, LocalDate.now());
+				person.setAge(period.getYears());
+				
+				PersonDTOAddress personDTO = new PersonDTOAddress(
+																	person.getLastName(),
+																	person.getAge(),
+																	person.getPhone(),
+																	person.getMedicalRecord()
+																);
+				listOfPerson.add(personDTO);
+			}
+		}
+		return listOfPerson;
+	}
 }
