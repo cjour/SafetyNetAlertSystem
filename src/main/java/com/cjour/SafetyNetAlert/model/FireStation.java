@@ -3,12 +3,10 @@ package com.cjour.SafetyNetAlert.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 public class FireStation {
 
 	//Créer des DTOs qui créer une couche supérieure à ces objets là.
-	@JsonIgnore
+	
 	private List<Person> listOfPerson = new ArrayList<Person>();
 	private String address;
 	private int station;

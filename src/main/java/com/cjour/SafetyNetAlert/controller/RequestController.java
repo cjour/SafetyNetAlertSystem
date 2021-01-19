@@ -31,18 +31,18 @@ public class RequestController {
 		return personDAO.getChild(address);	
 	}	
 	
-	@GetMapping(value="/firestation")
-	public ArrayList<FireStation> getFireStations () {
-		return fireStationDAO.findAll();
-	}
-	
 	@GetMapping(value="/medicalRecord")
 	public ArrayList<MedicalRecord> getMedicalRecords () {
 		return medicalRecordDAO.findAll();
 	}
 	
 	@GetMapping(value="/communityEmail")
-	public ArrayList<PersonDTO> getPersonEmailByCity(@RequestParam String city) {
-		return personDAO.getPersons(city);
+	public ArrayList<PersonDTOEmail> getPersonEmailByCity(@RequestParam String city) {
+		return personDAO.getEmail(city);
+	}
+	
+	@GetMapping(value="/firestation")
+	public ArrayList<PersonDTOFireStation> getPersonRelatedToFirestation(@RequestParam int station_number){
+		return personDAO.getPersonRelatedToFireStation(station_number);
 	}
 }

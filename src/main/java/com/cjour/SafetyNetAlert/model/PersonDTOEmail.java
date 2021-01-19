@@ -1,14 +1,14 @@
 package com.cjour.SafetyNetAlert.model;
 
-public class PersonDTO {
+public class PersonDTOEmail {
 
 	private String email;
 
-	public PersonDTO() {
+	public PersonDTOEmail() {
 		super();
 	}
 	
-	public PersonDTO(String email) {
+	public PersonDTOEmail(String email) {
 		super();
 		this.email = email;
 	}
