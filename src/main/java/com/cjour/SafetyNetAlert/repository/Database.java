@@ -44,7 +44,6 @@ public class Database {
 			for (FireStation fireStation : fireStationList) {
 				if(person.getAddress().equals(fireStation.getAddress())){
 					person.setFireStation(fireStation);
-					fireStation.getListOfPerson().add(person);
 				}
 			}
 		}
@@ -55,6 +54,7 @@ public class Database {
 //			for (Person person : personList) {
 //				if(person.getAddress().equals(fireStation.getAddress())){
 //					fireStation.getListOfPerson().add(person);
+//					person.setFireStation(fireStation);
 //				}
 //			}
 //		}

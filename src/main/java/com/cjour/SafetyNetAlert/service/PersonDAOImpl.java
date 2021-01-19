@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import org.springframework.stereotype.Repository;
 
-import com.cjour.SafetyNetAlert.model.Person;
+import com.cjour.SafetyNetAlert.model.*;
 import com.cjour.SafetyNetAlert.repository.Database;
 
 
@@ -64,11 +64,29 @@ public class PersonDAOImpl implements PersonDAO {
 	}
 
 	@Override
-	public ArrayList<Person> getPersons(String city) {
-		ArrayList<Person> listOfPerson = new ArrayList<Person>();
+	public ArrayList<PersonDTOEmail> getEmail(String city) {
+		ArrayList<PersonDTOEmail> listOfPerson = new ArrayList<PersonDTOEmail>();
 		for (Person person : persons) {
 			if(person.getCity().equals(city)) {
-				listOfPerson.add(person);
+				PersonDTOEmail personDTO = new PersonDTOEmail(person.getEmail());
+				listOfPerson.add(personDTO);
+			}
+		}
+		return listOfPerson;
+	}
+
+	@Override
+	public ArrayList<PersonDTOFireStation> getPersonRelatedToFireStation(int stationNumber) {
+		ArrayList<PersonDTOFireStation> listOfPerson = new ArrayList<>();
+		for (Person person : persons) {
+			if(person.getFireStation().getStation() == stationNumber) {
+				PersonDTOFireStation personDTO = new PersonDTOFireStation(
+						person.getFirstName(),
+						person.getLastName(),
+						person.getAddress(),
+						person.getPhone()
+						);
+				listOfPerson.add(personDTO);
 			}
 		}
 		return listOfPerson;
