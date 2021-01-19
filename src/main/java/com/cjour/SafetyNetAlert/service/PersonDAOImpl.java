@@ -91,4 +91,16 @@ public class PersonDAOImpl implements PersonDAO {
 		}
 		return listOfPerson;
 	}
+
+	@Override
+	public ArrayList<PersonDTOPhone> getPhoneNumberForSpecificFirestation(int stationNumber) {
+		ArrayList<PersonDTOPhone> listOfPerson = new ArrayList<>();
+		for (Person person : persons) {
+			if(person.getFireStation().getStation() == stationNumber) {
+				PersonDTOPhone personDTO = new PersonDTOPhone(person.getPhone());
+				listOfPerson.add(personDTO);
+			}
+		}
+		return listOfPerson;
+	}
 }
