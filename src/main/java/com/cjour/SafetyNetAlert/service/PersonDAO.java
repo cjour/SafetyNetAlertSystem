@@ -11,7 +11,7 @@ public interface PersonDAO {
 	//Read
 	public ArrayList<Person> findAll();
 	public Person findDistinctByLastnameAndFirstname(String lastname);
-	public ArrayList<Person> getChild(String address);
+	public ArrayList<PersonDTOChild> getChild(String address);
 	public ArrayList<PersonDTOEmail> getEmail(String city);
 	public ArrayList<PersonDTOFireStation> getPersonRelatedToFireStation(int stationNumber);
 	public ArrayList<PersonDTOPhone> getPhoneNumberForSpecificFirestation(int station_number);
