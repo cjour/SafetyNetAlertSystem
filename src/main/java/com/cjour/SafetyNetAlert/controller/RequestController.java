@@ -45,4 +45,9 @@ public class RequestController {
 	public ArrayList<PersonDTOFireStation> getPersonRelatedToFirestation(@RequestParam int station_number){
 		return personDAO.getPersonRelatedToFireStation(station_number);
 	}
+	
+	@GetMapping(value="/phoneAlert")
+	public ArrayList<PersonDTOPhone> getPhoneNumberForSpecificFirestation(@RequestParam int firestation){
+		return personDAO.getPhoneNumberForSpecificFirestation(firestation);
+	}
 }

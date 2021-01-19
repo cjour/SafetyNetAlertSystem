@@ -2,9 +2,7 @@ package com.cjour.SafetyNetAlert.service;
 
 import java.util.ArrayList;
 
-import com.cjour.SafetyNetAlert.model.Person;
-import com.cjour.SafetyNetAlert.model.PersonDTOEmail;
-import com.cjour.SafetyNetAlert.model.PersonDTOFireStation;
+import com.cjour.SafetyNetAlert.model.*;
 
 public interface PersonDAO {
 	//Create and Update
@@ -16,6 +14,7 @@ public interface PersonDAO {
 	public ArrayList<Person> getChild(String address);
 	public ArrayList<PersonDTOEmail> getEmail(String city);
 	public ArrayList<PersonDTOFireStation> getPersonRelatedToFireStation(int stationNumber);
+	public ArrayList<PersonDTOPhone> getPhoneNumberForSpecificFirestation(int station_number);
 	
 	//Delete
 	public boolean delete(Person person);
