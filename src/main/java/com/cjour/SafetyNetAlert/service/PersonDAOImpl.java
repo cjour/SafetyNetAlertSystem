@@ -45,19 +45,31 @@ public class PersonDAOImpl implements PersonDAO {
 	}
 	
 	@Override
-	public ArrayList<Person> getChild(String address) {
-		ArrayList<Person> myListOfChild = new ArrayList<Person>();
+	public ArrayList<PersonDTOChild> getChild(String address) {
+		ArrayList<PersonDTOChild> myListOfChild = new ArrayList<>();
+		ArrayList<Person> related = new ArrayList<>();
+
 		for (Person person : persons) {
 			
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 			LocalDate birthdate = LocalDate.parse(person.getMedicalRecord().getBirthdate(), formatter);
 			
-			LocalDate now = LocalDate.now();
+			Period period = Period.between(birthdate, LocalDate.now());
+			person.setAge(period.getYears());
 			
-			Period period = Period.between(birthdate, now);
+			if(person.getAddress().equals(address) && person.getAge() > 18) {
+				related.add(person);
+			}
 			
-			if(period.getYears() <= 18 && (person.getAddress()).equals(address)) {
-				myListOfChild.add(person);
+			if(person.getAge() <= 18 && (person.getAddress()).equals(address)) {
+							
+				PersonDTOChild personDTO = new PersonDTOChild(
+																person.getFirstName(),
+																person.getLastName(),
+																person.getAge(),
+																related 
+															);
+				myListOfChild.add(personDTO);
 			}
 		}
 		return myListOfChild;
@@ -81,11 +93,11 @@ public class PersonDAOImpl implements PersonDAO {
 		for (Person person : persons) {
 			if(person.getFireStation().getStation() == stationNumber) {
 				PersonDTOFireStation personDTO = new PersonDTOFireStation(
-						person.getFirstName(),
-						person.getLastName(),
-						person.getAddress(),
-						person.getPhone()
-						);
+																			person.getFirstName(),
+																			person.getLastName(),
+																			person.getAddress(),
+																			person.getPhone()
+																		);
 				listOfPerson.add(personDTO);
 			}
 		}

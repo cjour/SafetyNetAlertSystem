@@ -12,6 +12,7 @@ public class Person {
 	private String phone;
 	private String city;
 	private String zip;
+	private int age;
 	
 	public Person () {
 		super();
@@ -81,6 +82,14 @@ public class Person {
 	}
 	public void setZip(String zip) {
 		this.zip = zip;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+	
+	public int getAge() {
+		return this.age;
 	}
 	
 	

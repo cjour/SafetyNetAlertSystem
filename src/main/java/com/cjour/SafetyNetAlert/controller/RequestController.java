@@ -27,7 +27,7 @@ public class RequestController {
 	}
 	
 	@GetMapping(value="/childAlert")
-	public ArrayList<Person> getChild(@RequestParam String address){
+	public ArrayList<PersonDTOChild> getChild(@RequestParam String address){
 		return personDAO.getChild(address);	
 	}	
 	
