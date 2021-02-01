@@ -3,18 +3,12 @@ package com.cjour.SafetyNetAlert.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.cjour.SafetyNetAlert.DTO.PersonDTOChild;
-import com.cjour.SafetyNetAlert.DTO.PersonDTOEmail;
-import com.cjour.SafetyNetAlert.DTO.PersonDTOInfo;
-import com.cjour.SafetyNetAlert.DTO.PersonDTOPhone;
-import com.cjour.SafetyNetAlert.model.*;
+import com.cjour.SafetyNetAlert.DTO.*;
 
 public interface PersonService {
 	//Create
-	public boolean addAPerson(Person person);
 	
 	//Update	
-	public ArrayList<Person> updatePerson(String firstName, String lastName, String email);
 	
 	//Read
 	public ArrayList<PersonDTOChild> getChild(String address);
@@ -27,6 +21,5 @@ public interface PersonService {
 
 	
 	//Delete
-	public void deletePerson(String firstName, String lastName);
 	
 }

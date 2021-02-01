@@ -63,9 +63,4 @@ public class RequestController {
 		return personDAO.getPersonByTheirFirstNameAndLastName(lastName, firstName);
 	}
 	
-	@PutMapping(value="/person")
-	public ArrayList<Person> deletePerson(@RequestParam String firstName, String lastName, @RequestBody String Email) {
-		return personDAO.updatePerson(firstName, lastName, Email);
-	}
-
 }

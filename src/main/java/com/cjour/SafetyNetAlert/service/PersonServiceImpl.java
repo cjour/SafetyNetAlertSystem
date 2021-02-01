@@ -22,20 +22,6 @@ public class PersonServiceImpl implements PersonService {
 	
 	public static ArrayList<Person> persons = new Database().personList;
 	
-	@Override
-	public boolean addAPerson(Person person) {
-		persons.add(person);
-		return true;
-	}
-
-	@Override
-	public void deletePerson(String firstName, String lastName) {
-		for (Person person : persons) {
-			if(person.getFirstName().equals(firstName) && person.getLastName().equals(lastName)) {
-				persons.remove(person);
-			}
-		};
-	}
 	
 	@Override
 	public ArrayList<PersonDTOChild> getChild(String address) {
@@ -161,14 +147,4 @@ public class PersonServiceImpl implements PersonService {
 		return list;
 	}
 
-	@Override
-	public ArrayList<Person> updatePerson(String firstName, String lastName, String email) {
-		ArrayList<Person> listOfPerson = new ArrayList<>();
-		for (Person person : persons) {
-			if(person.getFirstName().equals(firstName) && person.getLastName().equals(lastName)) {
-				person.setEmail(email);
-			}
-		}
-		return listOfPerson;
-	}
 }
