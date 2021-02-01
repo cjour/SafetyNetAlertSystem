@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.cjour.SafetyNetAlert.DTO.*;
+import com.cjour.SafetyNetAlert.model.Person;
 
 public interface PersonService {
 	//Create
@@ -11,6 +12,8 @@ public interface PersonService {
 	//Update	
 	
 	//Read
+	public ArrayList<Person> findAll();
+	public Person getPerson(String firstName, String lastName);
 	public ArrayList<PersonDTOChild> getChild(String address);
 	public ArrayList<PersonDTOEmail> getEmail(String city);
 	public ArrayList<Object> getPersonRelatedToFireStation(int stationNumber);

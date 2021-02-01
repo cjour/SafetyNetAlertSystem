@@ -2,6 +2,7 @@ package com.cjour.SafetyNetAlert.service;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cjour.SafetyNetAlert.model.FireStation;
@@ -11,18 +12,19 @@ import com.cjour.SafetyNetAlert.repository.Database;
 @Repository
 public class FireStationServiceImpl implements FireStationService {
 	
-	public static ArrayList<FireStation> fireStations = new Database().fireStationList;
+	@Autowired
+	private Database database;
 
+	
 	@Override
-	public boolean addAFireStation(FireStation fireStation) {
-		// TODO Auto-generated method stub
-		return false;
+	public void addAFireStation(FireStation fireStation) {
+		database.getFireStationList().add(fireStation);
 	}
 
 	@Override
 	public ArrayList<FireStation> findAll() {
 		// TODO Auto-generated method stub
-		return fireStations;
+		return database.getFireStationList();
 	}
 	
 	@Override

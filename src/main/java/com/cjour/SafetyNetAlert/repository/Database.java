@@ -12,14 +12,14 @@ import com.cjour.SafetyNetAlert.model.MedicalRecord;
 import com.cjour.SafetyNetAlert.model.Person;
 import com.cjour.SafetyNetAlert.service.JSONDataHandler;
 
-@Component("db")
+@Component
 public class Database {
 	
-	private final static JSONDataHandler jsonDataHandler = new JSONDataHandler();
+	private final JSONDataHandler jsonDataHandler = new JSONDataHandler();
 
-	public ArrayList<Person> personList;
-	public ArrayList<FireStation> fireStationList;
-	public ArrayList<MedicalRecord> medicalRecordList;
+	private ArrayList<Person> personList;
+	private ArrayList<FireStation> fireStationList;
+	private ArrayList<MedicalRecord> medicalRecordList;
 
 
 	public Database() {
@@ -33,6 +33,30 @@ public class Database {
 
 	}
 
+	public ArrayList<Person> getPersonList() {
+		return personList;
+	}
+
+	public void setPersonList(ArrayList<Person> personList) {
+		this.personList = personList;
+	}
+
+	public ArrayList<FireStation> getFireStationList() {
+		return fireStationList;
+	}
+
+	public void setFireStationList(ArrayList<FireStation> fireStationList) {
+		this.fireStationList = fireStationList;
+	}
+
+	public ArrayList<MedicalRecord> getMedicalRecordList() {
+		return medicalRecordList;
+	}
+
+	public void setMedicalRecordList(ArrayList<MedicalRecord> medicalRecordList) {
+		this.medicalRecordList = medicalRecordList;
+	}
+	
 	public void linkMedicalRecordsToPerson() {
 		for (Person person : personList) {
 			for (MedicalRecord medicalrecord : medicalRecordList) {

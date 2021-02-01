@@ -4,15 +4,10 @@ package com.cjour.SafetyNetAlert.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.cjour.SafetyNetAlert.DTO.PersonDTOAddress;
-import com.cjour.SafetyNetAlert.DTO.PersonDTOChild;
-import com.cjour.SafetyNetAlert.DTO.PersonDTOEmail;
-import com.cjour.SafetyNetAlert.DTO.PersonDTOFireStation;
-import com.cjour.SafetyNetAlert.DTO.PersonDTOFireStations;
-import com.cjour.SafetyNetAlert.DTO.PersonDTOInfo;
-import com.cjour.SafetyNetAlert.DTO.PersonDTOPhone;
+import com.cjour.SafetyNetAlert.DTO.*;
 import com.cjour.SafetyNetAlert.model.*;
 import com.cjour.SafetyNetAlert.repository.Database;
 
@@ -20,15 +15,33 @@ import com.cjour.SafetyNetAlert.repository.Database;
 @Repository
 public class PersonServiceImpl implements PersonService {
 	
-	public static ArrayList<Person> persons = new Database().personList;
+	@Autowired
+	private Database database;
 	
+	@Override
+	public ArrayList<Person> findAll() {	
+		return database.getPersonList();
+	}
+	
+	@Override
+	public Person getPerson(String firstName, String lastName) {
+		Person person = null;
+		
+		for (Person elem : database.getPersonList()) {
+			if(elem.getFirstName().equals(firstName) && elem.getLastName().equals(lastName)) {
+				person = elem;
+			}
+		}
+		
+		return person;
+	}
 	
 	@Override
 	public ArrayList<PersonDTOChild> getChild(String address) {
 		ArrayList<PersonDTOChild> myListOfChild = new ArrayList<>();
 		ArrayList<Person> related = new ArrayList<>();
 
-		for (Person person : persons) {
+		for (Person person : database.getPersonList()) {
 
 			if(person.getAddress().equals(address) && person.getAge() > 18) {
 				related.add(person);
@@ -46,7 +59,7 @@ public class PersonServiceImpl implements PersonService {
 	@Override
 	public ArrayList<PersonDTOEmail> getEmail(String city) {
 		ArrayList<PersonDTOEmail> listOfPerson = new ArrayList<PersonDTOEmail>();
-		for (Person person : persons) {
+		for (Person person : database.getPersonList()) {
 			if(person.getCity().equals(city)) {
 				PersonDTOEmail personDTO = new PersonDTOEmail(person.getEmail());
 				listOfPerson.add(personDTO);
@@ -62,7 +75,7 @@ public class PersonServiceImpl implements PersonService {
 		int major = 0;
 		int minor = 0;
 		
-		for (Person person : persons) {
+		for (Person person : database.getPersonList()) {
 			if(person.getFireStation().getStation() == stationNumber) {
 				
 				PersonDTOFireStation personDTO = new PersonDTOFireStation(person.getFirstName(), person.getLastName(), person.getAddress(), person.getPhone());
@@ -88,7 +101,7 @@ public class PersonServiceImpl implements PersonService {
 	@Override
 	public ArrayList<PersonDTOPhone> getPhoneNumberForSpecificFirestation(int stationNumber) {
 		ArrayList<PersonDTOPhone> listOfPerson = new ArrayList<>();
-		for (Person person : persons) {
+		for (Person person : database.getPersonList()) {
 			if(person.getFireStation().getStation() == stationNumber) {
 				PersonDTOPhone personDTO = new PersonDTOPhone(person.getPhone());
 				listOfPerson.add(personDTO);
@@ -103,7 +116,7 @@ public class PersonServiceImpl implements PersonService {
 		int fireStationRelated = 0;
 		
 		ArrayList<PersonDTOAddress> listOfPerson = new ArrayList<>();
-		for (Person person : persons) {
+		for (Person person : database.getPersonList()) {
 			if(person.getAddress().equals(address)) {
 				fireStationRelated = person.getFireStation().getStation();
 				PersonDTOAddress personDTO = new PersonDTOAddress(person.getLastName(), person.getAge(), person.getPhone(), person.getMedicalRecord());
@@ -119,9 +132,9 @@ public class PersonServiceImpl implements PersonService {
 	@Override
 	public ArrayList<PersonDTOInfo> getPersonByTheirFirstNameAndLastName(String lastName, String firstName) {
 		ArrayList<PersonDTOInfo> listOfPerson = new ArrayList<>();
-		for (Person person : persons) {
+		ArrayList<Person> db = database.getPersonList();
+		for (Person person : database.getPersonList()) {
 			if(person.getFirstName().equals(firstName) && person.getLastName().equals(lastName)) {
-				
 				PersonDTOInfo personDTO = new PersonDTOInfo(person.getLastName(), person.getAddress(), person.getAge(), person.getEmail(), person.getMedicalRecord());
 				listOfPerson.add(personDTO);
 			}			
@@ -134,7 +147,7 @@ public class PersonServiceImpl implements PersonService {
 		HashMap<String, Object> list = new HashMap<>();
 		ArrayList<PersonDTOFireStations> listOfPerson = new ArrayList<>();
 		for (int station_number : station_numbers) {
-			for (Person person : persons) {
+			for (Person person : database.getPersonList()) {
 				if(person.getFireStation().getStation() == station_number) {
 					
 					PersonDTOFireStations personDTO = new PersonDTOFireStations(person.getMedicalRecord(), person.getLastName(), 
@@ -145,6 +158,14 @@ public class PersonServiceImpl implements PersonService {
 			}
 		}
 		return list;
+	}
+
+	public boolean delete(Person person) {
+		return database.getPersonList().remove(person);
+	}
+
+	public void addPerson(Person person) {
+		database.getPersonList().add(person);
 	}
 
 }

@@ -25,7 +25,7 @@ public class PersonServiceTest {
 		persons.get(1).setFireStation(new FireStation("Boston Fire, truck company 81", 81));
 		persons.get(2).setFireStation(new FireStation("Washington D.C Fire, ambulance 61", 61));
 
-		PersonServiceImpl.persons = persons;
+		//PersonServiceImpl.persons = persons;
 	}
 	
 	@Test
