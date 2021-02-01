@@ -9,7 +9,7 @@ import com.cjour.SafetyNetAlert.model.Person;
 import com.cjour.SafetyNetAlert.repository.Database;
 
 @Repository
-public class FireStationDAOImpl implements FireStationDAO {
+public class FireStationService implements FireStationDAO {
 	
 	public static ArrayList<FireStation> fireStations = new Database().fireStationList;
 

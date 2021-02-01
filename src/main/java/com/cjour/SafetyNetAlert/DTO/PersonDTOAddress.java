@@ -1,4 +1,6 @@
-package com.cjour.SafetyNetAlert.model;
+package com.cjour.SafetyNetAlert.DTO;
+
+import com.cjour.SafetyNetAlert.model.MedicalRecord;
 
 public class PersonDTOAddress {
 	private String lastName;

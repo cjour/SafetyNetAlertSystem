@@ -1,4 +1,4 @@
-package com.cjour.SafetyNetAlert.model;
+package com.cjour.SafetyNetAlert.DTO;
 
 public class PersonDTOFireStation {
 	

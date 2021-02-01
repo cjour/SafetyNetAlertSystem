@@ -8,7 +8,7 @@ import com.cjour.SafetyNetAlert.model.MedicalRecord;
 import com.cjour.SafetyNetAlert.repository.Database;
 
 @Repository
-public class MedicalRecordDAOImpl implements MedicalRecordDAO {
+public class MedicalRecordService implements MedicalRecordDAO {
 
 	public static ArrayList<MedicalRecord> medicalRecords = new Database().medicalRecordList;
 

@@ -1,6 +1,8 @@
-package com.cjour.SafetyNetAlert.model;
+package com.cjour.SafetyNetAlert.DTO;
 
 import java.util.ArrayList;
+
+import com.cjour.SafetyNetAlert.model.Person;
 
 public class PersonDTOChild {
 	
