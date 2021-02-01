@@ -13,7 +13,7 @@ import com.cjour.SafetyNetAlert.model.Person;
 
 public class PersonServiceTest {
 
-	public static final PersonService personService = new PersonService();
+	public static final PersonServiceImpl personService = new PersonServiceImpl();
 	public static final ArrayList<Person> persons = new ArrayList<>();
 	
 	@BeforeAll
@@ -25,7 +25,7 @@ public class PersonServiceTest {
 		persons.get(1).setFireStation(new FireStation("Boston Fire, truck company 81", 81));
 		persons.get(2).setFireStation(new FireStation("Washington D.C Fire, ambulance 61", 61));
 
-		personService.persons = persons;
+		PersonServiceImpl.persons = persons;
 	}
 	
 	@Test

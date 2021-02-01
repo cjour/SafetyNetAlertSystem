@@ -21,11 +21,11 @@ import com.cjour.SafetyNetAlert.service.*;
 public class RequestController {
 	
 	@Autowired
-	PersonService personDAO;
+	PersonServiceImpl personDAO;
 	@Autowired
-	FireStationService fireStationDAO;
+	FireStationServiceImpl fireStationDAO;
 	@Autowired
-	MedicalRecordService medicalRecordDAO;
+	MedicalRecordServiceImpl medicalRecordDAO;
 	
 
 	@GetMapping(value="/childAlert")
