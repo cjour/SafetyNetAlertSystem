@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -90,5 +91,11 @@ public class RequestController {
 	@PostMapping(value="/firestation")
 	public void addfireStation(@RequestBody FireStation fireStation) {
 		fireStationDAO.addAFireStation(fireStation);
+	}
+	
+	@DeleteMapping(value="/person")
+	public void deleteAPerson(@RequestParam String firstName, String lastName){
+		Person person = personDAO.getPerson(firstName, lastName);
+		personDAO.delete(person);
 	}
 }
