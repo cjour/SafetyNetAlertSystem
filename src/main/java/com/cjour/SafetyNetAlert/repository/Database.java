@@ -1,5 +1,8 @@
 package com.cjour.SafetyNetAlert.repository;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
@@ -26,6 +29,7 @@ public class Database {
 		this.linkMedicalRecordsToPerson();
 //		this.linkPersonToFireStation();
 		this.linkFireStationToPerson();
+		this.setAge();
 
 	}
 
@@ -46,6 +50,16 @@ public class Database {
 					person.setFireStation(fireStation);
 				}
 			}
+		}
+	}
+	
+	public void setAge() {
+		for (Person person : personList) {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+			LocalDate birthdate = LocalDate.parse(person.getMedicalRecord().getBirthdate(), formatter);
+			
+			Period period = Period.between(birthdate, LocalDate.now());
+			person.setAge(period.getYears());
 		}
 	}
 	

@@ -12,7 +12,7 @@ public class Person {
 	private String phone;
 	private String city;
 	private String zip;
-	private int age;
+	private int age = -1;
 	
 	public Person () {
 		super();
