@@ -26,67 +26,67 @@ import com.cjour.SafetyNetAlert.service.*;
 public class RequestController {
 	
 	@Autowired
-	PersonServiceImpl personDAO;
+	PersonServiceImpl personService;
 	@Autowired
-	FireStationServiceImpl fireStationDAO;
+	FireStationServiceImpl firestationService;
 	@Autowired
-	MedicalRecordServiceImpl medicalRecordDAO;
+	MedicalRecordServiceImpl medicalRecordService;
 	
 	//read
 	@GetMapping(value="/childAlert")
 	public ArrayList<PersonDTOChild> getChild(@RequestParam String address){
-		return personDAO.getChild(address);
+		return personService.getChild(address);
 	}	
 	
 	@GetMapping(value="/communityEmail")
 	public ArrayList<PersonDTOEmail> getPersonEmailByCity(@RequestParam String city) {
-		return personDAO.getEmail(city);
+		return personService.getEmail(city);
 	}
 	
 	@GetMapping(value="/firestation")
 	public ArrayList<Object> getPersonRelatedToFirestation(@RequestParam int station_number){
-		return personDAO.getPersonRelatedToFireStation(station_number);
+		return personService.getPersonRelatedToFireStation(station_number);
 	}
 	
 	@GetMapping(value="/phoneAlert")
 	public ArrayList<PersonDTOPhone> getPhoneNumberForSpecificFirestation(@RequestParam int firestation){
-		return personDAO.getPhoneNumberForSpecificFirestation(firestation);
+		return personService.getPhoneNumberForSpecificFirestation(firestation);
 	}
 	
 	@GetMapping(value="/fire")
 	public HashMap<String, Object> getPersonsByAddress(@RequestParam String address){
-		return personDAO.getPersonRelatedToThisAddress(address);
+		return personService.getPersonRelatedToThisAddress(address);
 	}
 	
 	@GetMapping(value="/flood/stations")
 	public HashMap<String, Object> getHomeRelatedToFireStation (@RequestParam int[] station_numbers) {
-		return personDAO.getHomeRelatedToFireStation(station_numbers);
+		return personService.getHomeRelatedToFireStation(station_numbers);
 	}
 	
 	@GetMapping(value="/personInfo")
 	public ArrayList<PersonDTOInfo> getPersonsByFirstAndLastName (@RequestParam String firstName, String lastName){
-		return personDAO.getPersonByTheirFirstNameAndLastName(lastName, firstName);
+		return personService.getPersonByTheirFirstNameAndLastName(lastName, firstName);
 	}
 	
 	@GetMapping(value="/firestations")
 	public ArrayList<FireStation> getFireStations(){
-		return fireStationDAO.findAll();
+		return firestationService.findAll();
 	}
 	
 	@GetMapping(value="/persons")
 	public ArrayList<Person> getPersons(){
-		return personDAO.findAll();
+		return personService.findAll();
 	}
 	
 	@GetMapping(value="/medicalRecords")
 	public ArrayList<MedicalRecord> getMedicalRecords(){
-		return medicalRecordDAO.findAll();
+		return medicalRecordService.findAll();
 	}
 	
 	//create
 	@PostMapping(value="/person")
 	public ResponseEntity<String> addPerson(@RequestBody Person person) {
-		if(!personDAO.addPerson(person)) {
+		if(!personService.addPerson(person)) {
 			return ResponseEntity.noContent().build();
 		}			
 		return new ResponseEntity<String>("Person has been created", HttpStatus.CREATED);
@@ -94,7 +94,7 @@ public class RequestController {
 	
 	@PostMapping(value="/medicalRecord")
 	public ResponseEntity<String> addAMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
-		if(!medicalRecordDAO.addAMedicalRecord(medicalRecord)) {
+		if(!medicalRecordService.addAMedicalRecord(medicalRecord)) {
 			return ResponseEntity.noContent().build();
 		}		
 		return new ResponseEntity<String>("Medical record has been created", HttpStatus.CREATED);
@@ -102,7 +102,7 @@ public class RequestController {
 	
 	@PostMapping(value="/firestation")
 	public ResponseEntity<String> addfireStation(@RequestBody FireStation fireStation) {
-		if(!fireStationDAO.addAFireStation(fireStation)) {
+		if(!firestationService.addAFireStation(fireStation)) {
 			return ResponseEntity.noContent().build();
 		}		
 		return new ResponseEntity<String>("Firestation has been created", HttpStatus.CREATED);
@@ -111,20 +111,20 @@ public class RequestController {
 	//delete
 	@DeleteMapping(value="/person")
 	public void deleteAPerson(@RequestParam String firstName, String lastName){
-		Person person = personDAO.getPerson(firstName, lastName);
-		personDAO.delete(person);
+		Person person = personService.getPerson(firstName, lastName);
+		personService.delete(person);
 	}
 	
 	@DeleteMapping(value="/medicalRecord")
 	public void deleteAMedicalRecord(@RequestParam String firstName, String lastName) {
-		MedicalRecord medicalRecord = medicalRecordDAO.getAMedicalRecord(firstName, lastName);
-		medicalRecordDAO.delete(medicalRecord);
+		MedicalRecord medicalRecord = medicalRecordService.getAMedicalRecord(firstName, lastName);
+		medicalRecordService.delete(medicalRecord);
 	}
 	
 	@DeleteMapping(value="/firestation")
 	public void deleteAFireStation(@RequestParam String address) {
-		FireStation firestation = fireStationDAO.getFireStation(address);
-		fireStationDAO.delete(firestation);
+		FireStation firestation = firestationService.getFireStation(address);
+		firestationService.delete(firestation);
 	}
 	
 	//update
@@ -134,9 +134,9 @@ public class RequestController {
 	
 	@PutMapping(value="/firestation")
 	public void updateAFireStation(@RequestParam String address, @RequestBody int station) {
-		FireStation firestation = fireStationDAO.getFireStation(address);
+		FireStation firestation = firestationService.getFireStation(address);
 		if(firestation != null) {
-			fireStationDAO.updateFireStation(firestation, station);
+			firestationService.updateFireStation(firestation, station);
 		}
 	}
 	
