@@ -48,6 +48,11 @@ public class FireStationServiceImpl implements FireStationService {
 		return firestation;
 	}
 
+	public void updateFireStation(FireStation firestation, int station) {
+		firestation.setStation(station);
+		database.getFireStationList().add(firestation);
+	}
+
 	
 
 }

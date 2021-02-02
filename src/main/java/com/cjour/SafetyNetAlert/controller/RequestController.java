@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +28,7 @@ public class RequestController {
 	@Autowired
 	MedicalRecordServiceImpl medicalRecordDAO;
 	
-
+	//read
 	@GetMapping(value="/childAlert")
 	public ArrayList<PersonDTOChild> getChild(@RequestParam String address){
 		return personDAO.getChild(address);
@@ -78,6 +79,7 @@ public class RequestController {
 		return medicalRecordDAO.findAll();
 	}
 	
+	//create
 	@PostMapping(value="/person")
 	public void addPerson(@RequestBody Person person) {
 		personDAO.addPerson(person);
@@ -93,6 +95,7 @@ public class RequestController {
 		fireStationDAO.addAFireStation(fireStation);
 	}
 	
+	//delete
 	@DeleteMapping(value="/person")
 	public void deleteAPerson(@RequestParam String firstName, String lastName){
 		Person person = personDAO.getPerson(firstName, lastName);
@@ -109,5 +112,18 @@ public class RequestController {
 	public void deleteAFireStation(@RequestParam String address) {
 		FireStation firestation = fireStationDAO.getFireStation(address);
 		fireStationDAO.delete(firestation);
+	}
+	
+	//update
+//	@PutMapping(value="/person")
+//	
+//	@PutMapping(value="/medicalRecord")
+	
+	@PutMapping(value="/firestation")
+	public void updateAFireStation(@RequestParam String address, @RequestBody int station) {
+		FireStation firestation = fireStationDAO.getFireStation(address);
+		if(firestation != null) {
+			fireStationDAO.updateFireStation(firestation, station);
+		}
 	}
 }
