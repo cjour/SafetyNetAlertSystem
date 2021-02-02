@@ -10,11 +10,12 @@ public interface MedicalRecordService {
 		public void addAMedicalRecord(MedicalRecord medicalRecord);
 		
 		//Read
+		public MedicalRecord getAMedicalRecord(String firstName, String lastName);
 		public ArrayList<MedicalRecord> findAll();
 		public MedicalRecord findDistinctByLastnameAndFirstname(String lastname);
 		
 		//Delete
-		public boolean delete(MedicalRecord medicalRecord);
+		public void delete(MedicalRecord medicalRecord);
 
 		
 	

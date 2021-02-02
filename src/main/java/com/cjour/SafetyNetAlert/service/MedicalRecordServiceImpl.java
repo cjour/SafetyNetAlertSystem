@@ -26,14 +26,25 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
 	}
 
 	@Override
-	public boolean delete(MedicalRecord medicalRecord) {
-		// TODO Auto-generated method stub
-		return false;
+	public void delete(MedicalRecord medicalRecord) {
+		database.getMedicalRecordList().remove(medicalRecord);
 	}
 	
 	@Override
 	public void addAMedicalRecord(MedicalRecord medicalRecord) {
 		database.getMedicalRecordList().add(medicalRecord);
+	}
+
+	@Override
+	public MedicalRecord getAMedicalRecord(String firstName, String lastName) {
+		MedicalRecord medicalRecord = null;
+		
+		for (MedicalRecord elem : database.getMedicalRecordList()) {
+			if(elem.getFirstName().equals(firstName) && elem.getLastName().equals(lastName)) {
+				medicalRecord = elem;
+			}
+		}
+		return medicalRecord;
 	}
 
 }

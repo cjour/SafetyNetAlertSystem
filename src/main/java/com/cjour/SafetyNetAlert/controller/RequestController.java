@@ -98,4 +98,16 @@ public class RequestController {
 		Person person = personDAO.getPerson(firstName, lastName);
 		personDAO.delete(person);
 	}
+	
+	@DeleteMapping(value="/medicalRecord")
+	public void deleteAMedicalRecord(@RequestParam String firstName, String lastName) {
+		MedicalRecord medicalRecord = medicalRecordDAO.getAMedicalRecord(firstName, lastName);
+		medicalRecordDAO.delete(medicalRecord);
+	}
+	
+	@DeleteMapping(value="/firestation")
+	public void deleteAFireStation(@RequestParam String address) {
+		FireStation firestation = fireStationDAO.getFireStation(address);
+		fireStationDAO.delete(firestation);
+	}
 }

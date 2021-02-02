@@ -23,7 +23,6 @@ public class FireStationServiceImpl implements FireStationService {
 
 	@Override
 	public ArrayList<FireStation> findAll() {
-		// TODO Auto-generated method stub
 		return database.getFireStationList();
 	}
 	
@@ -34,9 +33,19 @@ public class FireStationServiceImpl implements FireStationService {
 	}
 
 	@Override
-	public boolean delete(FireStation fireStation) {
-		// TODO Auto-generated method stub
-		return false;
+	public void delete(FireStation fireStation) {
+		database.getFireStationList().remove(fireStation);
+	}
+
+	@Override
+	public FireStation getFireStation(String address) {
+		FireStation firestation = null;
+		for (FireStation elem : database.getFireStationList()) {
+			if(elem.getAddress().equals(address)) {
+				firestation = elem;
+			}
+		}
+		return firestation;
 	}
 
 	
