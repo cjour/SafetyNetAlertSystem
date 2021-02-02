@@ -31,8 +31,8 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
 	}
 	
 	@Override
-	public void addAMedicalRecord(MedicalRecord medicalRecord) {
-		database.getMedicalRecordList().add(medicalRecord);
+	public Boolean addAMedicalRecord(MedicalRecord medicalRecord) {
+		return database.getMedicalRecordList().add(medicalRecord);
 	}
 
 	@Override

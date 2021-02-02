@@ -17,8 +17,11 @@ public class FireStationServiceImpl implements FireStationService {
 
 	
 	@Override
-	public void addAFireStation(FireStation fireStation) {
-		database.getFireStationList().add(fireStation);
+	public boolean addAFireStation(FireStation fireStation) {
+		if(database.getFireStationList().add(fireStation)) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override

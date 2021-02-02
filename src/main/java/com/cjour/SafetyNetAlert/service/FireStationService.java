@@ -7,7 +7,7 @@ import com.cjour.SafetyNetAlert.model.Person;
 
 public interface FireStationService {
 	//Create and Update
-	public void addAFireStation(FireStation fireStation);
+	public boolean addAFireStation(FireStation fireStation);
 	
 	//Read
 	public ArrayList<FireStation> findAll();

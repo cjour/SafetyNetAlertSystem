@@ -164,8 +164,11 @@ public class PersonServiceImpl implements PersonService {
 		return database.getPersonList().remove(person);
 	}
 
-	public void addPerson(Person person) {
-		database.getPersonList().add(person);
+	public Boolean addPerson(Person person) {
+		if (database.getPersonList().add(person)) {
+			return true;
+		} 
+		return false;
 	}
 
 }

@@ -1,9 +1,12 @@
 package com.cjour.SafetyNetAlert.controller;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.cjour.SafetyNetAlert.DTO.*;
 import com.cjour.SafetyNetAlert.model.FireStation;
@@ -81,18 +85,27 @@ public class RequestController {
 	
 	//create
 	@PostMapping(value="/person")
-	public void addPerson(@RequestBody Person person) {
-		personDAO.addPerson(person);
+	public ResponseEntity<String> addPerson(@RequestBody Person person) {
+		if(!personDAO.addPerson(person)) {
+			return ResponseEntity.noContent().build();
+		}			
+		return new ResponseEntity<String>("Person has been created", HttpStatus.CREATED);
 	}
 	
 	@PostMapping(value="/medicalRecord")
-	public void addAMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
-		medicalRecordDAO.addAMedicalRecord(medicalRecord);
+	public ResponseEntity<String> addAMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
+		if(!medicalRecordDAO.addAMedicalRecord(medicalRecord)) {
+			return ResponseEntity.noContent().build();
+		}		
+		return new ResponseEntity<String>("Medical record has been created", HttpStatus.CREATED);
 	}
 	
 	@PostMapping(value="/firestation")
-	public void addfireStation(@RequestBody FireStation fireStation) {
-		fireStationDAO.addAFireStation(fireStation);
+	public ResponseEntity<String> addfireStation(@RequestBody FireStation fireStation) {
+		if(!fireStationDAO.addAFireStation(fireStation)) {
+			return ResponseEntity.noContent().build();
+		}		
+		return new ResponseEntity<String>("Firestation has been created", HttpStatus.CREATED);
 	}
 	
 	//delete
@@ -126,4 +139,5 @@ public class RequestController {
 			fireStationDAO.updateFireStation(firestation, station);
 		}
 	}
+	
 }
