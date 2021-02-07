@@ -27,7 +27,9 @@ public class PersonServiceImpl implements PersonService {
 	public Person getPerson(String firstName, String lastName) {
 		Person person = null;
 		
-		for (Person elem : database.getPersonList()) {
+		ArrayList<Person> listOfPerson = database.getPersonList();
+		
+		for (Person elem : listOfPerson) {
 			if(elem.getFirstName().equals(firstName) && elem.getLastName().equals(lastName)) {
 				person = elem;
 			}

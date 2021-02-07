@@ -45,6 +45,7 @@
 			<version>0.8.5</version>
 			<type>maven-plugin</type>
 		</dependency>
+		
 	</dependencies>
 
 	<build>
