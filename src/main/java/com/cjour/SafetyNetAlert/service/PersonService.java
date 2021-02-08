@@ -18,7 +18,7 @@ public interface PersonService {
 	public ArrayList<PersonDTOEmail> getEmail(String city);
 	public ArrayList<Object> getPersonRelatedToFireStation(int stationNumber);
 	public ArrayList<PersonDTOPhone> getPhoneNumberForSpecificFirestation(int station_number);
-	public HashMap<String, Object> getPersonRelatedToThisAddress(String address);
+	public ArrayList<Object> getPersonRelatedToThisAddress(String address);
 	public ArrayList<PersonDTOInfo> getPersonByTheirFirstNameAndLastName(String lastName, String firstName);
 	public HashMap<String, Object> getHomeRelatedToFireStation(int[] station_numbers);
 

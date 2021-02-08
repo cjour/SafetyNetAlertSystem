@@ -66,6 +66,24 @@ public class PersonServiceTest {
 	}
 
 	@Test
+	public void findAllTest() {
+		// GIVEN
+		when(database.getPersonList()).thenReturn(listOfPerson);
+
+		// WHEN
+		ArrayList<Person> result = personService.findAll();
+		Person james = result.get(0);
+		Person hubert = result.get(1);
+		Person conan = result.get(2);
+
+		// THEN
+		assertFalse(result.isEmpty());
+		assertTrue(james.getAddress().equals("MI5"));
+		assertTrue(hubert.getAddress().equals("OSS"));
+		assertTrue(conan.getAddress().equals("Tivedétec"));
+	}
+
+	@Test
 	public void getPersonTest() {
 		// GIVEN
 		when(database.getPersonList()).thenReturn(listOfPerson);
@@ -244,28 +262,25 @@ public class PersonServiceTest {
 		}
 	}
 
-//	@Test
-//	public void noPersonFoundForThisAddress() {
-//		// GIVEN
-//		when(database.getPersonList()).thenReturn(listOfPerson);
-//
-//		// WHEN
-//		HashMap<String, Object> result = personService.getPersonRelatedToThisAddress("OSS");
-//
-//		// THEN
-//		HashMap<String, Integer> firestationRelatedToThisAddress = (HashMap<String, Integer>) result.get(0);
-//		System.out.println(firestationRelatedToThisAddress);
-//		int fireStation = firestationRelatedToThisAddress.get();
-//		
-//		HashMap<String, ArrayList<PersonDTOAddress>> listOfPersonRelatedToThisAddress = 
-//				(HashMap<String, ArrayList<PersonDTOAddress>>) result.get(1);
-//		
-//		assertTrue(firestationRelatedToThisAddress.get("Firestation related to OSS") == 2);
-//		assertFalse(listOfPersonRelatedToThisAddress.isEmpty());
-//		
-//
-//	
-//	}
+	@Test
+	public void noPersonFoundForThisAddress() {
+		// GIVEN
+		when(database.getPersonList()).thenReturn(listOfPerson);
+
+		// WHEN
+		ArrayList<Object> result = personService.getPersonRelatedToThisAddress("OSS");
+		Integer fireStation = (Integer) result.get(0);
+		ArrayList<PersonDTOAddress> listOfPersonRelatedToThisAddress = (ArrayList<PersonDTOAddress>) result.get(1);
+		PersonDTOAddress hubert = listOfPersonRelatedToThisAddress.get(0);
+		
+		assertTrue(fireStation.equals(2));
+		assertFalse(listOfPersonRelatedToThisAddress.isEmpty());
+		assertTrue(hubert.getLastName().equals("Bonisseur de la Bath"));
+		assertTrue(hubert.getAge() == 40);
+		assertTrue(hubert.getPhone().equals("117"));
+		assertNull(hubert.getMedicalRecord());
+		
+	}
 
 	@Test
 	public void getPersonByTheirFirstNameAndLastNameTest() {
@@ -291,12 +306,12 @@ public class PersonServiceTest {
 	public void getHomeRelatedToFireStationsTest() {
 		// GIVEN
 		when(database.getPersonList()).thenReturn(listOfPerson);
-		int [] fireStations = new int [] {2,3};
+		int[] fireStations = new int[] { 2, 3 };
 
 		// WHEN
 		HashMap<String, Object> result = personService.getHomeRelatedToFireStation(fireStations);
 
 		// THEN
-		
+
 	}
 }

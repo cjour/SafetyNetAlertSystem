@@ -113,8 +113,8 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-	public HashMap<String, Object> getPersonRelatedToThisAddress(String address) {
-		HashMap<String, Object> list = new HashMap<>();
+	public ArrayList<Object> getPersonRelatedToThisAddress(String address) {
+		ArrayList<Object> list = new ArrayList<>();
 		int fireStationRelated = 0;
 		
 		ArrayList<PersonDTOAddress> listOfPerson = new ArrayList<>();
@@ -125,8 +125,8 @@ public class PersonServiceImpl implements PersonService {
 				listOfPerson.add(personDTO);
 			}
 		}
-		list.put("Firestation related to " +  address, fireStationRelated);
-		list.put("Persons in this home", listOfPerson);
+		list.add(fireStationRelated);
+		list.add(listOfPerson);
 		
 		return list;
 	}

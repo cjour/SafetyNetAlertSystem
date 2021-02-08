@@ -54,7 +54,7 @@ public class RequestController {
 	}
 	
 	@GetMapping(value="/fire")
-	public HashMap<String, Object> getPersonsByAddress(@RequestParam String address){
+	public ArrayList<Object> getPersonsByAddress(@RequestParam String address){
 		return personService.getPersonRelatedToThisAddress(address);
 	}
 	
