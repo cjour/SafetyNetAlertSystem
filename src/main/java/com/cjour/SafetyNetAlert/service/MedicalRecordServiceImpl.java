@@ -47,4 +47,8 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
 		return medicalRecord;
 	}
 
+	public void updateMedicalRecord(MedicalRecord getMedicalRecord, MedicalRecord medicalRecord) {
+		
+	}
+
 }

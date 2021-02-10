@@ -1,7 +1,9 @@
 package com.cjour.SafetyNetAlert.model;
 
+import lombok.NonNull;
 
 public class Person {
+	
 	
 	private MedicalRecord medicalRecord;
 	private FireStation fireStation;

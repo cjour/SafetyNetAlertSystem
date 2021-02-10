@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -128,9 +129,21 @@ public class RequestController {
 	}
 	
 	//update
-//	@PutMapping(value="/person")
-//	
-//	@PutMapping(value="/medicalRecord")
+	@PatchMapping(value="/person")
+	public void updateAPerson(@RequestParam String firstName, String lastName, @RequestBody Person person) {
+		Person getPerson = personService.getPerson(firstName, lastName);
+		if(getPerson != null) {
+			personService.updatePerson(getPerson, person);
+		}
+	}
+	
+	@PutMapping(value="/medicalRecord")
+	public void updateAMedicalRecord(@RequestParam String firstName, String lastName, @RequestBody MedicalRecord medicalRecord) {
+		MedicalRecord getMedicalRecord = medicalRecordService.getAMedicalRecord(firstName, lastName);
+		if(getMedicalRecord != null && medicalRecord != null) {
+			medicalRecordService.updateMedicalRecord(getMedicalRecord, medicalRecord);
+		}
+	}
 	
 	@PutMapping(value="/firestation")
 	public void updateAFireStation(@RequestParam String address, @RequestBody int station) {

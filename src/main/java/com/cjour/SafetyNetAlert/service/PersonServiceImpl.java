@@ -155,7 +155,6 @@ public class PersonServiceImpl implements PersonService {
 					PersonDTOFireStations personDTO = new PersonDTOFireStations(person.getMedicalRecord(), person.getLastName(), 
 							person.getAddress(), person.getPhone(), person.getAge());
 					listOfPerson.add(personDTO);
-					list.put(person.getAddress(), listOfPerson);
 				}
 			}
 		}
@@ -171,6 +170,10 @@ public class PersonServiceImpl implements PersonService {
 			return true;
 		} 
 		return false;
+	}
+
+	public void updatePerson(Person getPerson, Person person) {
+		
 	}
 
 }
