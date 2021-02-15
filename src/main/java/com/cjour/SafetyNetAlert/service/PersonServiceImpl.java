@@ -134,7 +134,6 @@ public class PersonServiceImpl implements PersonService {
 	@Override
 	public ArrayList<PersonDTOInfo> getPersonByTheirFirstNameAndLastName(String lastName, String firstName) {
 		ArrayList<PersonDTOInfo> listOfPerson = new ArrayList<>();
-		ArrayList<Person> db = database.getPersonList();
 		for (Person person : database.getPersonList()) {
 			if(person.getFirstName().equals(firstName) && person.getLastName().equals(lastName)) {
 				PersonDTOInfo personDTO = new PersonDTOInfo(person.getLastName(), person.getAddress(), person.getAge(), person.getEmail(), person.getMedicalRecord());
@@ -173,7 +172,24 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	public void updatePerson(Person getPerson, Person person) {
+		if(person.getAddress() != null) {
+			getPerson.setAddress(person.getAddress());	
+		}
 		
+		if(person.getEmail() != null) {
+			getPerson.setEmail(person.getEmail());	
+		}
+		
+		if (person.getPhone() != null) {
+			getPerson.setPhone(person.getPhone());
+		}
+		
+		if(person.getCity() != null) {
+			getPerson.setCity(person.getCity());
+		}
+		
+		if(person.getZip() != null) {
+			getPerson.setZip(person.getZip());
+		}
 	}
-
 }

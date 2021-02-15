@@ -1,6 +1,5 @@
 package com.cjour.SafetyNetAlert.controller;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -9,13 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.cjour.SafetyNetAlert.DTO.*;
 import com.cjour.SafetyNetAlert.model.FireStation;
@@ -129,7 +126,7 @@ public class RequestController {
 	}
 	
 	//update
-	@PatchMapping(value="/person")
+	@PutMapping(value="/person")
 	public void updateAPerson(@RequestParam String firstName, String lastName, @RequestBody Person person) {
 		Person getPerson = personService.getPerson(firstName, lastName);
 		if(getPerson != null) {
