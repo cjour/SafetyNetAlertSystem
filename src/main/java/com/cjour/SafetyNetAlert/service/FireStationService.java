@@ -3,7 +3,6 @@ package com.cjour.SafetyNetAlert.service;
 import java.util.ArrayList;
 
 import com.cjour.SafetyNetAlert.model.FireStation;
-import com.cjour.SafetyNetAlert.model.Person;
 
 public interface FireStationService {
 	//Create and Update

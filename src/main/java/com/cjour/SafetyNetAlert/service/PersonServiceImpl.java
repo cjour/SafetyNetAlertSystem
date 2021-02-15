@@ -168,7 +168,7 @@ public class PersonServiceImpl implements PersonService {
 				if (person.getFireStation().getAddress() == fireStation.getAddress()) {
 
 					PersonDTOFireStations personDTO = new PersonDTOFireStations(person.getMedicalRecord(),
-							person.getLastName(), person.getAddress(), person.getPhone(), person.getAge());
+							person.getLastName(), person.getPhone(), person.getAge());
 					listOfPerson.add(personDTO);
 				}
 			}

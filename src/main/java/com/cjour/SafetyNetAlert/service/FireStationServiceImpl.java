@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cjour.SafetyNetAlert.model.FireStation;
-import com.cjour.SafetyNetAlert.model.Person;
 import com.cjour.SafetyNetAlert.repository.Database;
 
 @Repository
