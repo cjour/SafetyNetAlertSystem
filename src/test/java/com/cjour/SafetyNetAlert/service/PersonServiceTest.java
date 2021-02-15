@@ -20,6 +20,7 @@ import com.cjour.SafetyNetAlert.DTO.PersonDTOAddress;
 import com.cjour.SafetyNetAlert.DTO.PersonDTOChild;
 import com.cjour.SafetyNetAlert.DTO.PersonDTOEmail;
 import com.cjour.SafetyNetAlert.DTO.PersonDTOFireStation;
+import com.cjour.SafetyNetAlert.DTO.PersonDTOFireStations;
 import com.cjour.SafetyNetAlert.DTO.PersonDTOInfo;
 import com.cjour.SafetyNetAlert.DTO.PersonDTOPhone;
 import com.cjour.SafetyNetAlert.model.FireStation;
@@ -307,9 +308,9 @@ public class PersonServiceTest {
 		int[] fireStations = new int[] { 2, 3 };
 
 		// WHEN
-		HashMap<String, Object> result = personService.getHomeRelatedToFireStation(fireStations);
+		HashMap<String, ArrayList<PersonDTOFireStations>> result = personService.getHomeRelatedToFireStation(fireStations);
 
 		// THEN
-
+		
 	}
 }

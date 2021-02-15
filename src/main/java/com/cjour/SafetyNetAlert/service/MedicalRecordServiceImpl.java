@@ -14,27 +14,12 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
 	@Autowired
 	private Database database;
 	
+	//read
 	@Override
 	public ArrayList<MedicalRecord> findAll() {
 		return database.getMedicalRecordList();
 	}
-
-	@Override
-	public MedicalRecord findDistinctByLastnameAndFirstname(String lastname) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void delete(MedicalRecord medicalRecord) {
-		database.getMedicalRecordList().remove(medicalRecord);
-	}
 	
-	@Override
-	public Boolean addAMedicalRecord(MedicalRecord medicalRecord) {
-		return database.getMedicalRecordList().add(medicalRecord);
-	}
-
 	@Override
 	public MedicalRecord getAMedicalRecord(String firstName, String lastName) {
 		MedicalRecord medicalRecord = null;
@@ -46,9 +31,37 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
 		}
 		return medicalRecord;
 	}
+	
+	//delete
+	@Override
+	public void delete(MedicalRecord medicalRecord) {
+		database.getMedicalRecordList().remove(medicalRecord);
+	}
+	
+	//create
+	@Override
+	public Boolean addAMedicalRecord(MedicalRecord medicalRecord) {
+		if (getAMedicalRecord(medicalRecord.getFirstName(), medicalRecord.getLastName()) == null) {
+			database.getMedicalRecordList().add(medicalRecord);
+		}
+		return false;
+	}
 
+	//update
 	public void updateMedicalRecord(MedicalRecord getMedicalRecord, MedicalRecord medicalRecord) {
-		
+		if(this.getAMedicalRecord(getMedicalRecord.getFirstName(), getMedicalRecord.getLastName()) != null) {
+			if(medicalRecord.getBirthdate() != null) {
+				getMedicalRecord.setBirthdate(medicalRecord.getBirthdate());			
+			}
+			
+			if(medicalRecord.getAllergies() != null) {
+				getMedicalRecord.setAllergies(medicalRecord.getAllergies());			
+			}
+			
+			if(medicalRecord.getMedications() != null) {
+				getMedicalRecord.setMedications(medicalRecord.getMedications());
+			}
+		}
 	}
 
 }

@@ -16,30 +16,12 @@ public class FireStationServiceImpl implements FireStationService {
 	private Database database;
 
 	
-	@Override
-	public boolean addAFireStation(FireStation fireStation) {
-		if(database.getFireStationList().add(fireStation)) {
-			return true;
-		}
-		return false;
-	}
-
+	//read
 	@Override
 	public ArrayList<FireStation> findAll() {
 		return database.getFireStationList();
 	}
 	
-	@Override
-	public ArrayList<Person> findPersonRelatedByFireStation(int fireStationNumber) {
-		
-		return null;
-	}
-
-	@Override
-	public void delete(FireStation fireStation) {
-		database.getFireStationList().remove(fireStation);
-	}
-
 	@Override
 	public FireStation getFireStation(String address) {
 		FireStation firestation = null;
@@ -50,9 +32,42 @@ public class FireStationServiceImpl implements FireStationService {
 		}
 		return firestation;
 	}
+	
+	public ArrayList<FireStation> getFireStationWithNumber(int number) {
+		ArrayList<FireStation> fireStationList = new ArrayList<>();
+		for (FireStation firestation : database.getFireStationList()) {
+			if (firestation.getStation() == number) {
+				fireStationList.add(firestation);
+			}
+		}
+		
+		return fireStationList ;	
+	}
+	
+	//create
+	@Override
+	public boolean addAFireStation(FireStation fireStation) {
+		if(getFireStationWithNumber(fireStation.getStation()).isEmpty()){
+			if(fireStation.getStation() != 0 && fireStation.getAddress() != null) {
+				return database.getFireStationList().add(fireStation);
+			}
+		}
+		return false;
+	}
 
+	
+	//delete
+	@Override
+	public void delete(FireStation fireStation) {
+		database.getFireStationList().remove(fireStation);
+	}
+
+	
+	//update
 	public void updateFireStation(FireStation firestation, int station) {
-		firestation.setStation(station);
+		if(getFireStation(firestation.getAddress()) != null){
+			firestation.setStation(station);
+		}
 		database.getFireStationList().add(firestation);
 	}
 

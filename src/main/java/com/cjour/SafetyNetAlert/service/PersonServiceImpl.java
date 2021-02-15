@@ -1,6 +1,5 @@
 package com.cjour.SafetyNetAlert.service;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -147,8 +146,8 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-	public HashMap<String, Object> getHomeRelatedToFireStation(int[] station_numbers) {
-		HashMap<String, Object> list = new HashMap<>();
+	public HashMap<String, ArrayList<PersonDTOFireStations>> getHomeRelatedToFireStation(int[] station_numbers) {
+		HashMap<String, ArrayList<PersonDTOFireStations>> list = new HashMap<>();
 
 		ArrayList<FireStation> listOfFirestation = new ArrayList<>();
 		for (int station_number : station_numbers) {
@@ -182,33 +181,37 @@ public class PersonServiceImpl implements PersonService {
 	public boolean delete(Person person) {
 		return database.getPersonList().remove(person);
 	}
-
-	public Boolean addPerson(Person person) {
-		if (database.getPersonList().add(person)) {
-			return true;
+	
+	public Boolean addAPerson(Person person) {
+		if((getPerson(person.getFirstName(), person.getLastName()) == null)) {
+			return database.getPersonList().add(person);
+		} else {
+			return false;
 		}
-		return false;
 	}
 
 	public void updatePerson(Person getPerson, Person person) {
-		if (person.getAddress() != null) {
-			getPerson.setAddress(person.getAddress());
-		}
+		if((getPerson(person.getFirstName(), person.getLastName()) != null)) {
+			
+			if (person.getAddress() != null) {
+				getPerson.setAddress(person.getAddress());
+			}
 
-		if (person.getEmail() != null) {
-			getPerson.setEmail(person.getEmail());
-		}
+			if (person.getEmail() != null) {
+				getPerson.setEmail(person.getEmail());
+			}
 
-		if (person.getPhone() != null) {
-			getPerson.setPhone(person.getPhone());
-		}
+			if (person.getPhone() != null) {
+				getPerson.setPhone(person.getPhone());
+			}
 
-		if (person.getCity() != null) {
-			getPerson.setCity(person.getCity());
-		}
+			if (person.getCity() != null) {
+				getPerson.setCity(person.getCity());
+			}
 
-		if (person.getZip() != null) {
-			getPerson.setZip(person.getZip());
-		}
+			if (person.getZip() != null) {
+				getPerson.setZip(person.getZip());
+			}
+		}	
 	}
 }

@@ -57,7 +57,7 @@ public class RequestController {
 	}
 	
 	@GetMapping(value="/flood/stations")
-	public HashMap<String, Object> getHomeRelatedToFireStation (@RequestParam int[] station_numbers) {
+	public HashMap<String, ArrayList<PersonDTOFireStations>> getHomeRelatedToFireStation (@RequestParam int[] station_numbers) {
 		return personService.getHomeRelatedToFireStation(station_numbers);
 	}
 	
@@ -84,8 +84,8 @@ public class RequestController {
 	//create
 	@PostMapping(value="/person")
 	public ResponseEntity<String> addPerson(@RequestBody Person person) {
-		if(!personService.addPerson(person)) {
-			return ResponseEntity.noContent().build();
+		if(!personService.addAPerson(person)) {
+			return new ResponseEntity<String>("Person already exists !", HttpStatus.CONFLICT);
 		}			
 		return new ResponseEntity<String>("Person has been created", HttpStatus.CREATED);
 	}
@@ -93,7 +93,7 @@ public class RequestController {
 	@PostMapping(value="/medicalRecord")
 	public ResponseEntity<String> addAMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
 		if(!medicalRecordService.addAMedicalRecord(medicalRecord)) {
-			return ResponseEntity.noContent().build();
+			return new ResponseEntity<String>("Medical Record already exists !", HttpStatus.CONFLICT);
 		}		
 		return new ResponseEntity<String>("Medical record has been created", HttpStatus.CREATED);
 	}
@@ -101,7 +101,7 @@ public class RequestController {
 	@PostMapping(value="/firestation")
 	public ResponseEntity<String> addfireStation(@RequestBody FireStation fireStation) {
 		if(!firestationService.addAFireStation(fireStation)) {
-			return ResponseEntity.noContent().build();
+			return new ResponseEntity<String>("FireStation already exists !", HttpStatus.CONFLICT);
 		}		
 		return new ResponseEntity<String>("Firestation has been created", HttpStatus.CREATED);
 	}

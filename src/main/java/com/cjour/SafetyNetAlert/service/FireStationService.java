@@ -12,7 +12,6 @@ public interface FireStationService {
 	//Read
 	public ArrayList<FireStation> findAll();
 	public FireStation getFireStation(String address);
-	public ArrayList<Person> findPersonRelatedByFireStation(int fireStationNumber);
 	
 	//Delete
 	public void delete(FireStation fireStation);

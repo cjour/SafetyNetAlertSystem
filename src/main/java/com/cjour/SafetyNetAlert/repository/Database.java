@@ -86,6 +86,11 @@ public class Database {
 			person.setAge(period.getYears());
 		}
 	}
+
+	public boolean personExist() {
+
+		return false;
+	}
 	
 //	public void linkPersonToFireStation() {
 //		for (FireStation fireStation : fireStationList) {

@@ -12,7 +12,6 @@ public interface MedicalRecordService {
 		//Read
 		public MedicalRecord getAMedicalRecord(String firstName, String lastName);
 		public ArrayList<MedicalRecord> findAll();
-		public MedicalRecord findDistinctByLastnameAndFirstname(String lastname);
 		
 		//Delete
 		public void delete(MedicalRecord medicalRecord);
