@@ -40,15 +40,16 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
 	
 	//create
 	@Override
-	public Boolean addAMedicalRecord(MedicalRecord medicalRecord) {
+	public boolean addAMedicalRecord(MedicalRecord medicalRecord) {
 		if (getAMedicalRecord(medicalRecord.getFirstName(), medicalRecord.getLastName()) == null) {
-			database.getMedicalRecordList().add(medicalRecord);
+			return database.getMedicalRecordList().add(medicalRecord);
+		} else {
+			return false;
 		}
-		return false;
 	}
 
 	//update
-	public void updateMedicalRecord(MedicalRecord getMedicalRecord, MedicalRecord medicalRecord) {
+	public boolean updateMedicalRecord(MedicalRecord getMedicalRecord, MedicalRecord medicalRecord) {
 		if(this.getAMedicalRecord(getMedicalRecord.getFirstName(), getMedicalRecord.getLastName()) != null) {
 			if(medicalRecord.getBirthdate() != null) {
 				getMedicalRecord.setBirthdate(medicalRecord.getBirthdate());			
@@ -61,7 +62,11 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
 			if(medicalRecord.getMedications() != null) {
 				getMedicalRecord.setMedications(medicalRecord.getMedications());
 			}
+		} else {
+			return false;
+
 		}
+		return true;
 	}
 
 }

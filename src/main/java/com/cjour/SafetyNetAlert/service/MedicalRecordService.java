@@ -7,7 +7,7 @@ import com.cjour.SafetyNetAlert.model.MedicalRecord;
 public interface MedicalRecordService {
 	
 		//Create and Update
-		public Boolean addAMedicalRecord(MedicalRecord medicalRecord);
+		public boolean addAMedicalRecord(MedicalRecord medicalRecord);
 		
 		//Read
 		public MedicalRecord getAMedicalRecord(String firstName, String lastName);

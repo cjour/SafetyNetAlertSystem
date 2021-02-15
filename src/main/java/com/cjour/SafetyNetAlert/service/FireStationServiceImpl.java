@@ -57,17 +57,20 @@ public class FireStationServiceImpl implements FireStationService {
 	
 	//delete
 	@Override
-	public void delete(FireStation fireStation) {
-		database.getFireStationList().remove(fireStation);
+	public boolean delete(FireStation fireStation) {
+		return database.getFireStationList().remove(fireStation);
 	}
 
 	
 	//update
-	public void updateFireStation(FireStation firestation, int station) {
-		if(getFireStation(firestation.getAddress()) != null){
-			firestation.setStation(station);
-		}
-		database.getFireStationList().add(firestation);
+	public boolean updateFireStation(FireStation firestation, int station) {
+		for (FireStation elem : database.getFireStationList()) {
+			if(elem.getStation() == station) {
+				return false;
+			}
+		}	
+		firestation.setStation(station);			
+		return true;
 	}
 
 	

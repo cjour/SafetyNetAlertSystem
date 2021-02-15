@@ -182,7 +182,7 @@ public class PersonServiceImpl implements PersonService {
 		return database.getPersonList().remove(person);
 	}
 	
-	public Boolean addAPerson(Person person) {
+	public boolean addAPerson(Person person) {
 		if((getPerson(person.getFirstName(), person.getLastName()) == null)) {
 			return database.getPersonList().add(person);
 		} else {
@@ -190,7 +190,7 @@ public class PersonServiceImpl implements PersonService {
 		}
 	}
 
-	public void updatePerson(Person getPerson, Person person) {
+	public boolean updatePerson(Person getPerson, Person person) {
 		if((getPerson(person.getFirstName(), person.getLastName()) != null)) {
 			
 			if (person.getAddress() != null) {
@@ -212,6 +212,9 @@ public class PersonServiceImpl implements PersonService {
 			if (person.getZip() != null) {
 				getPerson.setZip(person.getZip());
 			}
-		}	
+		} else {
+			return false;	
+		}
+		return true;
 	}
 }

@@ -13,7 +13,7 @@ public interface FireStationService {
 	public FireStation getFireStation(String address);
 	
 	//Delete
-	public void delete(FireStation fireStation);
+	public boolean delete(FireStation fireStation);
 	
 }
 
