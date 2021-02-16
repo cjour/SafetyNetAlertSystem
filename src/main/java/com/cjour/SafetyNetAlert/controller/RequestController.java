@@ -123,7 +123,7 @@ public class RequestController {
 			if(persontoDelete != null) {
 				if(!personService.delete(persontoDelete)) {
 					return new ResponseEntity<String>(
-							"Cannot delete this person, an error occurred", HttpStatus.NOT_FOUND);
+							"Cannot delete this person, an error occurred", HttpStatus.CONFLICT);
 				}
 				
 				return new ResponseEntity<String>(
