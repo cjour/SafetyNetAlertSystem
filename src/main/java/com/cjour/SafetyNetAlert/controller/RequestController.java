@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cjour.SafetyNetAlert.DTO.*;
-import com.cjour.SafetyNetAlert.model.FireStation;
-import com.cjour.SafetyNetAlert.model.MedicalRecord;
-import com.cjour.SafetyNetAlert.model.Person;
+import com.cjour.SafetyNetAlert.model.*;
 import com.cjour.SafetyNetAlert.service.*;
 
 @RestController
