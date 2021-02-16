@@ -14,7 +14,7 @@ public interface MedicalRecordService {
 		public ArrayList<MedicalRecord> findAll();
 		
 		//Delete
-		public void delete(MedicalRecord medicalRecord);
+		public boolean delete(MedicalRecord medicalRecord);
 
 		
 	

@@ -34,8 +34,8 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
 	
 	//delete
 	@Override
-	public void delete(MedicalRecord medicalRecord) {
-		database.getMedicalRecordList().remove(medicalRecord);
+	public boolean delete(MedicalRecord medicalRecord) {
+		return database.getMedicalRecordList().remove(medicalRecord);
 	}
 	
 	//create

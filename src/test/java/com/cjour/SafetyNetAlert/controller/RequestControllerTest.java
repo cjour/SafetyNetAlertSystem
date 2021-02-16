@@ -10,15 +10,19 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.cjour.SafetyNetAlert.service.PersonServiceImpl;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 public class RequestControllerTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
+	@Autowired
+	private RequestController rc;
 	
 	@MockBean
-	private RequestController requestController;
+	private PersonServiceImpl personService;
 	
 	@Test
 	public void testGetcall() throws Exception {
