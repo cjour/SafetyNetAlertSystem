@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +17,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import com.cjour.SafetyNetAlert.DTO.PersonDTOAddress;
-import com.cjour.SafetyNetAlert.DTO.PersonDTOChild;
-import com.cjour.SafetyNetAlert.DTO.PersonDTOEmail;
-import com.cjour.SafetyNetAlert.DTO.PersonDTOFireStation;
-import com.cjour.SafetyNetAlert.DTO.PersonDTOFireStations;
-import com.cjour.SafetyNetAlert.DTO.PersonDTOInfo;
-import com.cjour.SafetyNetAlert.DTO.PersonDTOPhone;
-import com.cjour.SafetyNetAlert.model.FireStation;
-import com.cjour.SafetyNetAlert.model.MedicalRecord;
-import com.cjour.SafetyNetAlert.model.Person;
+import com.cjour.SafetyNetAlert.DTO.*;
+import com.cjour.SafetyNetAlert.model.*;
 import com.cjour.SafetyNetAlert.repository.Database;
 
 @SpringBootTest
@@ -35,13 +28,14 @@ public class PersonServiceTest {
 	private PersonServiceImpl personService;
 
 	private static ArrayList<Person> listOfPerson;
+	private static ArrayList<FireStation> listOfFirestation;
+	private static Person conan;
 
 	@MockBean
-	// Pourquoi @Bean ne fonctionne pas mais @MockBean fonctionne ??????
 	private Database database;
 
-	@BeforeAll
-	public static void setUp() {
+	@BeforeEach
+	public void setUp() {
 
 		Person james = new Person("James", "Bond", "MI5", "London", "England", "007", "JB@MI5.uk");
 		james.setAge(40);
@@ -51,7 +45,7 @@ public class PersonServiceTest {
 		hubert.setAge(40);
 		hubert.setFireStation(new FireStation("Pompier de Paris", 2));
 
-		Person conan = new Person("Conan", "Edogawa", "Tivedétec", "Tokyo", "Japon", "123", "Conan@Tivedétec.jp");
+		conan = new Person("Conan", "Edogawa", "Tivedétec", "Tokyo", "Japon", "123", "Conan@Tivedétec.jp");
 		conan.setAge(6);
 		conan.setFireStation(new FireStation("Tokyo fire station", 3));
 		conan.setMedicalRecord(
@@ -61,6 +55,11 @@ public class PersonServiceTest {
 		listOfPerson.add(james);
 		listOfPerson.add(hubert);
 		listOfPerson.add(conan);
+
+		listOfFirestation = new ArrayList<>();
+		listOfFirestation.add(james.getFireStation());
+		listOfFirestation.add(hubert.getFireStation());
+		listOfFirestation.add(conan.getFireStation());
 
 	}
 
@@ -271,14 +270,14 @@ public class PersonServiceTest {
 		Integer fireStation = (Integer) result.get(0);
 		ArrayList<PersonDTOAddress> listOfPersonRelatedToThisAddress = (ArrayList<PersonDTOAddress>) result.get(1);
 		PersonDTOAddress hubert = listOfPersonRelatedToThisAddress.get(0);
-		
+
 		assertTrue(fireStation.equals(2));
 		assertFalse(listOfPersonRelatedToThisAddress.isEmpty());
 		assertTrue(hubert.getLastName().equals("Bonisseur de la Bath"));
 		assertTrue(hubert.getAge() == 40);
 		assertTrue(hubert.getPhone().equals("117"));
 		assertNull(hubert.getMedicalRecord());
-		
+
 	}
 
 	@Test
@@ -305,12 +304,112 @@ public class PersonServiceTest {
 	public void getHomeRelatedToFireStationsTest() {
 		// GIVEN
 		when(database.getPersonList()).thenReturn(listOfPerson);
+		when(database.getFireStationList()).thenReturn(listOfFirestation);
+
 		int[] fireStations = new int[] { 2, 3 };
 
 		// WHEN
-		HashMap<String, ArrayList<PersonDTOFireStations>> result = personService.getHomeRelatedToFireStation(fireStations);
+		HashMap<String, ArrayList<PersonDTOFireStations>> result = personService
+				.getHomeRelatedToFireStation(fireStations);
 
 		// THEN
+		assertFalse(result.isEmpty());
+		ArrayList<PersonDTOFireStations> listOfPersonForPompierDeParis = result.get("Pompier de Paris");
+		assertTrue(listOfPersonForPompierDeParis.get(0).getLastName().equals("Bonisseur de la Bath"));
+		assertTrue(listOfPersonForPompierDeParis.get(0).getPhone().equals("117"));
+		assertTrue(listOfPersonForPompierDeParis.get(0).getAge() == 40);
+		assertNull(listOfPersonForPompierDeParis.get(0).getMedicalRecord());
+
+		ArrayList<PersonDTOFireStations> listOfPersonForTokyoFireStation = result.get("Tokyo fire station");
+
+		assertTrue(listOfPersonForTokyoFireStation.get(0).getLastName().equals("Edogawa"));
+		assertTrue(listOfPersonForTokyoFireStation.get(0).getPhone().equals("123"));
+		assertTrue(listOfPersonForTokyoFireStation.get(0).getMedicalRecord().getBirthdate().equals(""));
+		assertTrue(listOfPersonForTokyoFireStation.get(0).getMedicalRecord().getMedications().isEmpty());
+		assertTrue(listOfPersonForTokyoFireStation.get(0).getMedicalRecord().getAllergies().isEmpty());
+
+	}
+
+	@Test
+	public void deleteAPersonTest() {
+		// GIVEN
+		when(database.getPersonList()).thenReturn(listOfPerson);
+
+		// WHEN
+		boolean result = personService.delete(conan);
+
+		// THEN
+		assertTrue(result);
+		for (Person person : listOfPerson) {
+			assertFalse(person.getFirstName().equals("Conan"));
+		}
+	}
+
+	@Test
+	public void addAPerson() {
+		// GIVEN
+		Person person = new Person("Clément", "Jourdain", "", "", "", "", "");
+		when(database.getPersonList()).thenReturn(listOfPerson);
 		
+		// WHEN
+		boolean result = personService.addAPerson(person);
+
+		// THEN
+		assertTrue(result);
+	}
+	
+	@Test
+	public void addAPersonError() {
+		// GIVEN
+		Person person = new Person("Conan", "Edogawa", "", "", "", "", "");
+		when(database.getPersonList()).thenReturn(listOfPerson);
+		
+		// WHEN
+		boolean result = personService.addAPerson(person);
+
+		// THEN
+		assertFalse(result);
+	}
+	
+	@Test
+	public void updateAPersonTest() {
+		
+		when(database.getPersonList()).thenReturn(listOfPerson);
+		Person getPerson = personService.getPerson("James", "Bond");
+		Person person = new Person();
+		person.setFirstName("James");
+		person.setLastName("Bond");
+		person.setAddress("La grange dans le cantal");
+		person.setEmail("JB@MITRetired.uk");
+		person.setPhone("123456");
+		person.setCity("Aurillac");
+		person.setZip("15");
+		
+		//WHEN
+		boolean result = personService.updatePerson(getPerson, person);
+		
+		//THEN
+		assertTrue(result);
+	}
+	
+	@Test
+	public void updateAPersonErrorTest() {
+		
+		when(database.getPersonList()).thenReturn(listOfPerson);
+		Person getPerson = personService.getPerson("James", "Bond");
+		Person person = new Person();
+		person.setFirstName("James");
+		person.setLastName("Bonisseur de la bath");
+		person.setAddress("La grange dans le cantal");
+		person.setEmail("JB@MITRetired.uk");
+		person.setPhone("123456");
+		person.setCity("Aurillac");
+		person.setZip("15");
+		
+		//WHEN
+		boolean result = personService.updatePerson(getPerson, person);
+		
+		//THEN
+		assertFalse(result);
 	}
 }
