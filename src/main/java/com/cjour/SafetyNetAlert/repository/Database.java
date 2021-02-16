@@ -27,7 +27,6 @@ public class Database {
 		this.fireStationList = jsonDataHandler.fetchingDataFromJSONForFireStation();
 		this.medicalRecordList = jsonDataHandler.fetchingDataFromJSONForMedicalRecords();
 		this.linkMedicalRecordsToPerson();
-//		this.linkPersonToFireStation();
 		this.linkFireStationToPerson();
 		this.setAge();
 
@@ -91,15 +90,4 @@ public class Database {
 
 		return false;
 	}
-	
-//	public void linkPersonToFireStation() {
-//		for (FireStation fireStation : fireStationList) {
-//			for (Person person : personList) {
-//				if(person.getAddress().equals(fireStation.getAddress())){
-//					fireStation.getListOfPerson().add(person);
-//					person.setFireStation(fireStation);
-//				}
-//			}
-//		}
-//	}
 }

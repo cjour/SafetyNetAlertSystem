@@ -65,25 +65,5 @@ public class JSONDataHandler {
 			e.printStackTrace();
 		}
 		return list;
-	}
-
-// I should try to develop a generic function but cannot manage to find how to pass the class to POJO as parameter.
-//	
-//	public <T> List<T> fetchingDataFromJSON(String nodeValue, Class<T> POJO) {
-//
-//		List<T> list = new ArrayList<T>();
-//
-//		try {
-//			JsonNode jsonNodeT = mapper.readTree(new URL(
-//					"https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/DA+Java+EN/P5+/data.json"))
-//					.get(nodeValue);
-//			String jsonNodeAsString = mapper.writeValueAsString(jsonNodeT);
-//			list = mapper.readValue(jsonNodeAsString, new TypeReference<List<T>>() {
-//			});
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		return list;
-//	}
-	
+	}	
 }

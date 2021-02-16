@@ -1,13 +1,8 @@
 package com.cjour.SafetyNetAlert.model;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class FireStation {
-
-	//Créer des DTOs qui créer une couche supérieure à ces objets là.
 	
-	private List<Person> listOfPerson = new ArrayList<Person>();
 	private String address;
 	private int station;
 	
@@ -21,15 +16,6 @@ public class FireStation {
 		this.station = station;
 	}
 	
-	
-	public List<Person> getListOfPerson() {
-		return listOfPerson;
-	}
-
-	public void setListOfPerson(List<Person> listOfPerson) {
-		this.listOfPerson = listOfPerson;
-	}
-
 	public String getAddress() {
 		return address;
 	}
@@ -45,6 +31,5 @@ public class FireStation {
 	public void setStation(int station) {
 		this.station = station;
 	}
-
 
 }
