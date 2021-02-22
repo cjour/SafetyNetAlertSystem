@@ -30,6 +30,7 @@ public class PersonServiceImpl implements PersonService {
 		for (Person elem : listOfPerson) {
 			if (elem.getFirstName().equals(firstName) && elem.getLastName().equals(lastName)) {
 				person = elem;
+				
 			}
 		}
 

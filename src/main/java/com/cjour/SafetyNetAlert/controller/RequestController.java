@@ -51,9 +51,9 @@ public class RequestController {
 	}
 
 	@GetMapping(value = "/firestation")
-	public ArrayList<Object> getPersonRelatedToFirestation(@RequestParam int station_number) {
-		LOGGER.info("request firestation has been send for firestation : " + station_number);
-		ArrayList<Object> result = personService.getPersonRelatedToFireStation(station_number);
+	public ArrayList<Object> getPersonRelatedToFirestation(@RequestParam int stationNumber) {
+		LOGGER.info("request firestation has been send for firestation : " + stationNumber);
+		ArrayList<Object> result = personService.getPersonRelatedToFireStation(stationNumber);
 		LOGGER.info("result for firestation is : " + result.toString());
 		return result;
 	}
@@ -75,9 +75,9 @@ public class RequestController {
 	}
 
 	@GetMapping(value = "/flood/stations")
-	public HashMap<String, ArrayList<PersonDTOFireStations>> getHomeRelatedToFireStation(@RequestParam int[] station_numbers) {
-		LOGGER.info("request flood/stations has been send for stations : " + station_numbers);
-		HashMap<String, ArrayList<PersonDTOFireStations>> result = personService.getHomeRelatedToFireStation(station_numbers);
+	public HashMap<String, ArrayList<PersonDTOFireStations>> getHomeRelatedToFireStation(@RequestParam int[] stations) {
+		LOGGER.info("request flood/stations has been send for stations : " + stations);
+		HashMap<String, ArrayList<PersonDTOFireStations>> result = personService.getHomeRelatedToFireStation(stations);
 		LOGGER.info("result for flood/stations is : " + result.toString());
 		return result;
 	}
@@ -187,9 +187,28 @@ public class RequestController {
 	}
 
 	@DeleteMapping(value = "/medicalRecord")
-	public void deleteAMedicalRecord(@RequestParam String firstName, String lastName) {
-		MedicalRecord medicalRecord = medicalRecordService.getAMedicalRecord(firstName, lastName);
-		medicalRecordService.delete(medicalRecord);
+	public ResponseEntity<String> deleteAMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
+		if(medicalRecord.getFirstName() != null && medicalRecord.getLastName() != null) {
+			MedicalRecord medicalRecordToDelete = medicalRecordService.getAMedicalRecord(medicalRecord.getFirstName(), medicalRecord.getLastName());
+			if (medicalRecordToDelete != null) {
+				if(!medicalRecordService.delete(medicalRecordToDelete)) {
+					LOGGER.error("Cannot delete this medical record, an error occurred");
+
+					return new ResponseEntity<String>(
+							"Cannot delete this medical record, an error occurred", HttpStatus.CONFLICT);
+				}
+				LOGGER.info("Cannot delete this person, an error occurred");
+				return new ResponseEntity<String>(
+						"" + medicalRecord.getFirstName() + " " + medicalRecord.getLastName() + " has been deleted", HttpStatus.OK);
+
+			}
+			LOGGER.error("Cannot delete a non existing medical record");
+			return new ResponseEntity<String>(
+					"Cannot delete a non existing medical record", HttpStatus.NOT_FOUND);
+		}
+		LOGGER.error("You need to pass the lastName and firstName of the person you want to delete");
+		return new ResponseEntity<String>(
+				"You need to pass the lastName and firstName of the medicalRecord you want to delete", HttpStatus.BAD_REQUEST);
 	}
 
 	@DeleteMapping(value = "/firestation")

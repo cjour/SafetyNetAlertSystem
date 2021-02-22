@@ -57,7 +57,7 @@ public class RequestControllerTest {
 
 	@Test
 	public void testGetcallfirestation() throws Exception {
-		mockMvc.perform(get("/firestation?station_number=1")).andExpect(status().isOk());
+		mockMvc.perform(get("/firestation?stationNumber=1")).andExpect(status().isOk());
 	}
 
 	@Test
@@ -368,6 +368,54 @@ public class RequestControllerTest {
 		when(personService.delete(Mockito.any(Person.class))).thenReturn(false);
 		
 		mockMvc.perform(delete("/person")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(mapper.writeValueAsString(new Person("Clément", "Jourdain", null, null, null, null, null))))
+		.andExpect(status().isConflict());
+	}
+	
+	@Test
+	public void testDeleteMedicalRecord() throws Exception {
+		when(medicalRecordService.getAMedicalRecord(Mockito.anyString(), Mockito.anyString())).thenReturn(new MedicalRecord());
+
+		when(medicalRecordService.delete(Mockito.any(MedicalRecord.class))).thenReturn(true);
+		
+		mockMvc.perform(delete("/medicalRecord")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(mapper.writeValueAsString(new MedicalRecord("Clément", "Jourdain", null, null, null))))
+		.andExpect(status().isOk());
+	}
+	
+	@Test
+	public void testDeleteMedicalRecordInvalidNames() throws Exception {
+		when(medicalRecordService.getAMedicalRecord(Mockito.anyString(), Mockito.anyString())).thenReturn(new MedicalRecord());
+
+		when(medicalRecordService.delete(Mockito.any(MedicalRecord.class))).thenReturn(true);
+		
+		mockMvc.perform(delete("/medicalRecord")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(mapper.writeValueAsString(new Person(null, "Jourdain", null, null, null, null, null))))
+		.andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void testDeleteMedicalRecordNoMatch() throws Exception {
+		when(medicalRecordService.getAMedicalRecord(Mockito.anyString(), Mockito.anyString())).thenReturn(null);
+
+		when(medicalRecordService.delete(Mockito.any(MedicalRecord.class))).thenReturn(true);
+		
+		mockMvc.perform(delete("/medicalRecord")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(mapper.writeValueAsString(new Person("Clément", "Jourdain", null, null, null, null, null))))
+		.andExpect(status().isNotFound());
+	}
+	
+	@Test
+	public void testDeleteMedicalRecordErrorOccured() throws Exception {
+		when(medicalRecordService.getAMedicalRecord(Mockito.anyString(), Mockito.anyString())).thenReturn(new MedicalRecord());
+
+		when(medicalRecordService.delete(Mockito.any(MedicalRecord.class))).thenReturn(false);
+		
+		mockMvc.perform(delete("/medicalRecord")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(mapper.writeValueAsString(new Person("Clément", "Jourdain", null, null, null, null, null))))
 		.andExpect(status().isConflict());
