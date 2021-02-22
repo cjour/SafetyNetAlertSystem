@@ -178,10 +178,12 @@ public class PersonServiceImpl implements PersonService {
 		return list;
 	}
 
+	@Override
 	public boolean delete(Person person) {
 		return database.getPersonList().remove(person);
 	}
 	
+	@Override
 	public boolean addAPerson(Person person) {
 		if((getPerson(person.getFirstName(), person.getLastName()) == null)) {
 			return database.getPersonList().add(person);
@@ -189,7 +191,8 @@ public class PersonServiceImpl implements PersonService {
 			return false;
 		}
 	}
-
+	
+	@Override
 	public boolean updatePerson(Person getPerson, Person person) {
 		if((getPerson(person.getFirstName(), person.getLastName()) != null)) {
 			

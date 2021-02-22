@@ -49,6 +49,7 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
 	}
 
 	//update
+	@Override
 	public boolean updateMedicalRecord(MedicalRecord getMedicalRecord, MedicalRecord medicalRecord) {
 		if(this.getAMedicalRecord(getMedicalRecord.getFirstName(), getMedicalRecord.getLastName()) != null) {
 			if(medicalRecord.getBirthdate() != null) {

@@ -8,8 +8,7 @@ import com.cjour.SafetyNetAlert.model.Person;
 
 public interface PersonService {
 	//Create
-	
-	//Update	
+	public boolean addAPerson(Person person);
 	
 	//Read
 	public ArrayList<Person> findAll();
@@ -21,8 +20,10 @@ public interface PersonService {
 	public ArrayList<Object> getPersonRelatedToThisAddress(String address);
 	public ArrayList<PersonDTOInfo> getPersonByTheirFirstNameAndLastName(String lastName, String firstName);
 	public HashMap<String, ArrayList<PersonDTOFireStations>> getHomeRelatedToFireStation(int[] station_numbers);
-
+	
+	//Update
+	public boolean updatePerson(Person getPerson, Person person);
 	
 	//Delete
-	
+	public boolean delete(Person person);
 }

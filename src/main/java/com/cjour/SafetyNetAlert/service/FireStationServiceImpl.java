@@ -32,6 +32,7 @@ public class FireStationServiceImpl implements FireStationService {
 		return firestation;
 	}
 	
+	@Override
 	public ArrayList<FireStation> getFireStationWithNumber(int number) {
 		ArrayList<FireStation> fireStationList = new ArrayList<>();
 		for (FireStation firestation : database.getFireStationList()) {
@@ -63,6 +64,7 @@ public class FireStationServiceImpl implements FireStationService {
 
 	
 	//update
+	@Override
 	public boolean updateFireStation(FireStation firestation, int station) {
 		for (FireStation elem : database.getFireStationList()) {
 			if(elem.getStation() == station) {
