@@ -36,7 +36,7 @@ public class RequestController {
 	// read
 	@GetMapping(value = "/childAlert")
 	public ArrayList<PersonDTOChild> getChild(@RequestParam String address) {
-		LOGGER.info("request childAlert has been send for " + address);
+		LOGGER.info("request childAlert has been send for address : " + address);
 		ArrayList<PersonDTOChild> result = personService.getChild(address);
 		LOGGER.info("result for childAlert request is : " + result.toString());
 		return result;
@@ -44,59 +44,89 @@ public class RequestController {
 
 	@GetMapping(value = "/communityEmail")
 	public ArrayList<PersonDTOEmail> getPersonEmailByCity(@RequestParam String city) {
-		return personService.getEmail(city);
+		LOGGER.info("request for endpoint communityEmail has been send for city : " + city);
+		ArrayList<PersonDTOEmail> result = personService.getEmail(city);
+		LOGGER.info("result for communityEmail is : " + result.toString());
+		return result;
 	}
 
 	@GetMapping(value = "/firestation")
 	public ArrayList<Object> getPersonRelatedToFirestation(@RequestParam int station_number) {
-		return personService.getPersonRelatedToFireStation(station_number);
+		LOGGER.info("request firestation has been send for firestation : " + station_number);
+		ArrayList<Object> result = personService.getPersonRelatedToFireStation(station_number);
+		LOGGER.info("result for firestation is : " + result.toString());
+		return result;
 	}
 
 	@GetMapping(value = "/phoneAlert")
 	public ArrayList<PersonDTOPhone> getPhoneNumberForSpecificFirestation(@RequestParam int firestation) {
-		return personService.getPhoneNumberForSpecificFirestation(firestation);
+		LOGGER.info("request phoneAlert has been send for firestation : " + firestation);
+		ArrayList<PersonDTOPhone> result = personService.getPhoneNumberForSpecificFirestation(firestation);
+		LOGGER.info("result for phoneAlert is : " + result.toString());
+		return result;
 	}
 
 	@GetMapping(value = "/fire")
 	public ArrayList<Object> getPersonsByAddress(@RequestParam String address) {
-		return personService.getPersonRelatedToThisAddress(address);
+		LOGGER.info("request fire has been send for address : " + address);
+		ArrayList<Object> result = personService.getPersonRelatedToThisAddress(address);
+		LOGGER.info("result for fire is : " + result.toString());
+		return result;
 	}
 
 	@GetMapping(value = "/flood/stations")
-	public HashMap<String, ArrayList<PersonDTOFireStations>> getHomeRelatedToFireStation(
-			@RequestParam int[] station_numbers) {
-		return personService.getHomeRelatedToFireStation(station_numbers);
+	public HashMap<String, ArrayList<PersonDTOFireStations>> getHomeRelatedToFireStation(@RequestParam int[] station_numbers) {
+		LOGGER.info("request flood/stations has been send for stations : " + station_numbers);
+		HashMap<String, ArrayList<PersonDTOFireStations>> result = personService.getHomeRelatedToFireStation(station_numbers);
+		LOGGER.info("result for flood/stations is : " + result.toString());
+		return result;
 	}
 
 	@GetMapping(value = "/personInfo")
 	public ArrayList<PersonDTOInfo> getPersonsByFirstAndLastName(@RequestParam String firstName, String lastName) {
-		return personService.getPersonByTheirFirstNameAndLastName(lastName, firstName);
+		LOGGER.info("request personInfo has been send for person : " + firstName + " " + lastName);
+		ArrayList<PersonDTOInfo> result = personService.getPersonByTheirFirstNameAndLastName(lastName, firstName);
+		LOGGER.info("result for personInfo is : " + result.toString());
+		return result;
 	}
 
 	@GetMapping(value = "/firestations")
 	public ArrayList<FireStation> getFireStations() {
-		return firestationService.findAll();
+		LOGGER.info("request firestations has been send");
+		ArrayList<FireStation> result = firestationService.findAll();
+		LOGGER.info("result for firestations is : " + result.toString());
+		return result;
 	}
 
 	@GetMapping(value = "/persons")
 	public ArrayList<Person> getPersons() {
-		return personService.findAll();
+		LOGGER.info("request persons has been send");
+		ArrayList<Person> result = personService.findAll();
+		LOGGER.info("result for persons is : " + result.toString());
+		return result;
 	}
 
 	@GetMapping(value = "/medicalRecords")
 	public ArrayList<MedicalRecord> getMedicalRecords() {
+		LOGGER.info("request medicalRecords has been send");
+		ArrayList<MedicalRecord> result = medicalRecordService.findAll();
+		LOGGER.info("result for medicalRecords is : " + result.toString());
 		return medicalRecordService.findAll();
 	}
 
 	// create
 	@PostMapping(value = "/person")
 	public ResponseEntity<String> addPerson(@RequestBody Person person) {
+		LOGGER.info("request person has been send");
 		if (person.getFirstName() != null && person.getLastName() != null) {
 			if (!personService.addAPerson(person)) {
+				LOGGER.error("Person already exists !");
 				return new ResponseEntity<String>("Person already exists !", HttpStatus.CONFLICT);
 			}
+			LOGGER.info("Person has been created");
 			return new ResponseEntity<String>("Person has been created", HttpStatus.CREATED);
 		}
+		LOGGER.error("You need at least a firstName and lastName to create a person");
 		return new ResponseEntity<String>("You need at least a firstName and lastName to create a person", HttpStatus.BAD_REQUEST);
 	}
 
@@ -104,10 +134,13 @@ public class RequestController {
 	public ResponseEntity<String> addAMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
 		if (medicalRecord.getFirstName() != null && medicalRecord.getLastName() != null) {
 			if (!medicalRecordService.addAMedicalRecord(medicalRecord)) {
+				LOGGER.error("Medical Record already exists !");
 				return new ResponseEntity<String>("Medical Record already exists !", HttpStatus.CONFLICT);
 			}
+			LOGGER.info("Medical record has been created");
 			return new ResponseEntity<String>("Medical record has been created", HttpStatus.CREATED);
 		}
+		LOGGER.error("You need at least a firstName and lastName to create a medical record");
 		return new ResponseEntity<String>("You need at least a firstName and lastName to create a medical record", HttpStatus.BAD_REQUEST);
 	}
 
@@ -115,10 +148,13 @@ public class RequestController {
 	public ResponseEntity<String> addfireStation(@RequestBody FireStation fireStation) {
 		if(fireStation.getAddress() != null && fireStation.getStation() !=0 && fireStation.getStation() > 0) {
 			if (!firestationService.addAFireStation(fireStation)) {
+				LOGGER.error("FireStation already exists !");
 				return new ResponseEntity<String>("FireStation already exists !", HttpStatus.CONFLICT);
 			}
+			LOGGER.info("FireStation has been created");
 			return new ResponseEntity<String>("Firestation located at " + fireStation.getAddress() + " has been created", HttpStatus.CREATED);
 		}
+		LOGGER.error("You need an address and a station number to create a firestation");
 		return new ResponseEntity<String>("You need an address and a station number to create a firestation", HttpStatus.BAD_REQUEST);
 	}
 		
@@ -130,17 +166,21 @@ public class RequestController {
 			Person persontoDelete = personService.getPerson(person.getFirstName(), person.getLastName());
 			if(persontoDelete != null) {
 				if(!personService.delete(persontoDelete)) {
+					LOGGER.error("Cannot delete this person, an error occurred");
+
 					return new ResponseEntity<String>(
 							"Cannot delete this person, an error occurred", HttpStatus.CONFLICT);
 				}
-				
+				LOGGER.info("Cannot delete this person, an error occurred");
 				return new ResponseEntity<String>(
 						"" + person.getFirstName() + " " + person.getLastName() + " has been deleted", HttpStatus.OK);
 
 			}
+			LOGGER.error("Cannot delete a non existing person");
 			return new ResponseEntity<String>(
 					"Cannot delete a non existing person", HttpStatus.NOT_FOUND);
 		}
+		LOGGER.error("You need to pass the lastName and firstName of the person you want to delete");
 		return new ResponseEntity<String>(
 				"You need to pass the lastName and firstName of the person you want to delete", HttpStatus.BAD_REQUEST);
 		
@@ -165,15 +205,19 @@ public class RequestController {
 			Person getPerson = personService.getPerson(person.getFirstName(), person.getLastName());
 			if (getPerson != null) {
 				if (!personService.updatePerson(getPerson, person)) {
+					LOGGER.error("Cannot update the person, an error occured");
 					return new ResponseEntity<String>("Cannot update the person, an error occured",
 							HttpStatus.CONFLICT);
 				}
+				LOGGER.info("Person " + person.getFirstName() + " " + person.getLastName() + " has been updated");
 				return new ResponseEntity<String>(
 						"Person " + person.getFirstName() + " " + person.getLastName() + " has been updated",
 						HttpStatus.OK);
 			}
+			LOGGER.error("Cannot update a non existing person");
 			return new ResponseEntity<String>("Cannot update a non existing person", HttpStatus.NOT_FOUND);
 		}
+		LOGGER.error("You need to pass the lastName and firstName of the person you want to update");
 		return new ResponseEntity<String>(
 				"You need to pass the lastName and firstName of the person you want to update", HttpStatus.NOT_FOUND);
 	}
@@ -185,16 +229,18 @@ public class RequestController {
 					medicalRecord.getLastName());
 			if (getMedicalRecord != null) {
 				if (!medicalRecordService.updateMedicalRecord(getMedicalRecord, medicalRecord)) {
+					LOGGER.error("Cannot update the medical record, an error occurred");
 					return new ResponseEntity<String>("Cannot update the medical record, an error occurred",
 							HttpStatus.CONFLICT);
 				}
-				return new ResponseEntity<String>("Medical record of " + medicalRecord.getFirstName() + " "
-						+ medicalRecord.getLastName() + " has been updated", HttpStatus.OK);
+				LOGGER.info("Medical record of " + medicalRecord.getFirstName() + " " + medicalRecord.getLastName() + " has been updated");
+				return new ResponseEntity<String>("Medical record of " + medicalRecord.getFirstName() + " "	+ medicalRecord.getLastName() + " has been updated", HttpStatus.OK);
 			}
-
+			LOGGER.error("Cannot update a non existing medical record");
 			return new ResponseEntity<String>("Cannot update a non existing medical record", HttpStatus.NOT_FOUND);
 
 		}
+		LOGGER.error("You need to pass the lastName and firstName of the person related to the medical record you want to update");
 		return new ResponseEntity<String>(
 				"You need to pass the lastName and firstName of the person related to the medical record you want to update",
 				HttpStatus.NOT_FOUND);
@@ -207,18 +253,23 @@ public class RequestController {
 			if (firestationToUpdate != null) {
 				if (firestation.getStation() != 0 && firestation.getStation() > 0) {
 					if (!firestationService.updateFireStation(firestationToUpdate, firestation.getStation())) {
+						LOGGER.error("Cannot update the fire station, the number of station already exists");
 						return new ResponseEntity<String>("Cannot update the fire station, the number of station already exists",
 								HttpStatus.CONFLICT);
 
 					}
+					LOGGER.info("Firestation n° " + firestationToUpdate.getAddress() + " has been updated");
 					return new ResponseEntity<String>(
 							"Firestation n° " + firestationToUpdate.getAddress() + " has been updated", HttpStatus.OK);
 				}
+				LOGGER.error("station number must be positive");
 				return new ResponseEntity<String>("station number must be positive", HttpStatus.CONFLICT);
 			}
+			LOGGER.error("Cannot update a non existing station");
 			return new ResponseEntity<String>("Cannot update a non existing station", HttpStatus.NOT_FOUND);
 
 		}
+		LOGGER.error("You need to pass a valid address to update a station");
 		return new ResponseEntity<String>("You need to pass a valid address to update a station", HttpStatus.NOT_FOUND);
 
 	}
