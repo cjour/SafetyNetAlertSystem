@@ -53,4 +53,10 @@ public class PersonDTOFireStations {
 	public void setAge(int age) {
 		this.age = age;
 	}
+
+	@Override
+	public String toString() {
+		return "PersonDTOFireStations [lastName=" + lastName + ", phone=" + phone + ", age=" + age + ", medicalRecord="
+				+ medicalRecord + "]";
+	}
 }

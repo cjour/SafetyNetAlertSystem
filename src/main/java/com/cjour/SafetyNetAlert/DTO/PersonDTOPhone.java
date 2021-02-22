@@ -19,5 +19,9 @@ public class PersonDTOPhone {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "PersonDTOPhone [phone=" + phone + "]";
+	}
 }

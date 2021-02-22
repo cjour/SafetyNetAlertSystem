@@ -50,5 +50,11 @@ public class PersonDTOAddress {
 
 	public void setMedicalRecord(MedicalRecord medicalRecord) {
 		this.medicalRecord = medicalRecord;
+	}
+
+	@Override
+	public String toString() {
+		return "PersonDTOAddress [lastName=" + lastName + ", age=" + age + ", phone=" + phone + ", medicalRecord="
+				+ medicalRecord + "]";
 	}	
 }

@@ -51,5 +51,9 @@ public class PersonDTOFireStation {
 		this.phone = phone;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "PersonDTOFireStation [firstName=" + firstName + ", lastName=" + lastName + ", address=" + address
+				+ ", phone=" + phone + "]";
+	}
 }

@@ -63,4 +63,9 @@ public class PersonDTOInfo {
 		this.age = age;
 	}
 
+	@Override
+	public String toString() {
+		return "PersonDTOInfo [lastName=" + lastName + ", address=" + address + ", age=" + age + ", email=" + email
+				+ ", medicalRecord=" + medicalRecord + "]";
+	}
 }

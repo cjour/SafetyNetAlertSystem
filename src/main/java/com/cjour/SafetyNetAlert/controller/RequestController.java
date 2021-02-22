@@ -3,6 +3,9 @@ package com.cjour.SafetyNetAlert.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,11 +30,16 @@ public class RequestController {
 	FireStationServiceImpl firestationService;
 	@Autowired
 	MedicalRecordServiceImpl medicalRecordService;
+	
+	private static final Logger LOGGER = LogManager.getLogger("APPLog");
 
 	// read
 	@GetMapping(value = "/childAlert")
 	public ArrayList<PersonDTOChild> getChild(@RequestParam String address) {
-		return personService.getChild(address);
+		LOGGER.info("request childAlert has been send for " + address);
+		ArrayList<PersonDTOChild> result = personService.getChild(address);
+		LOGGER.info("result for childAlert request is : " + result.toString());
+		return result;
 	}
 
 	@GetMapping(value = "/communityEmail")

@@ -3,6 +3,8 @@ package com.cjour.SafetyNetAlert.model;
 public class Person {
 	
 	
+	
+
 	private MedicalRecord medicalRecord;
 	private FireStation fireStation;
 	private String firstName;
@@ -92,5 +94,10 @@ public class Person {
 		return this.age;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Person [medicalRecord=" + medicalRecord + ", fireStation=" + fireStation + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", address=" + address + ", email=" + email + ", phone=" + phone
+				+ ", city=" + city + ", zip=" + zip + ", age=" + age + "]";
+	}
 }

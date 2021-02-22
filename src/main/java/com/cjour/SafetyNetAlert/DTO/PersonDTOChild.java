@@ -55,5 +55,9 @@ public class PersonDTOChild {
 		this.related = related;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "PersonDTOChild [firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", related="
+				+ related + "]";
+	}
 }
