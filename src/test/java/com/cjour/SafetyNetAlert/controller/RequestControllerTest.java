@@ -376,7 +376,8 @@ public class RequestControllerTest {
 	@Test
 	public void testDeleteMedicalRecord() throws Exception {
 		when(medicalRecordService.getAMedicalRecord(Mockito.anyString(), Mockito.anyString())).thenReturn(new MedicalRecord());
-
+		
+		when(personService.getPerson(Mockito.anyString(), Mockito.anyString())).thenReturn(new Person());
 		when(medicalRecordService.delete(Mockito.any(MedicalRecord.class))).thenReturn(true);
 		
 		mockMvc.perform(delete("/medicalRecord")
@@ -412,6 +413,7 @@ public class RequestControllerTest {
 	@Test
 	public void testDeleteMedicalRecordErrorOccured() throws Exception {
 		when(medicalRecordService.getAMedicalRecord(Mockito.anyString(), Mockito.anyString())).thenReturn(new MedicalRecord());
+		when(personService.getPerson(Mockito.anyString(), Mockito.anyString())).thenReturn(new Person());
 
 		when(medicalRecordService.delete(Mockito.any(MedicalRecord.class))).thenReturn(false);
 		
