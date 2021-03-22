@@ -19,11 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cjour.SafetyNetAlert.DTO.*;
 import com.cjour.SafetyNetAlert.model.*;
+import com.cjour.SafetyNetAlert.repository.Database;
 import com.cjour.SafetyNetAlert.service.*;
 
 @RestController
 public class RequestController {
 
+	@Autowired
+	Database database;
 	@Autowired
 	PersonServiceImpl personService;
 	@Autowired
@@ -191,15 +194,17 @@ public class RequestController {
 		if(medicalRecord.getFirstName() != null && medicalRecord.getLastName() != null) {
 			MedicalRecord medicalRecordToDelete = medicalRecordService.getAMedicalRecord(medicalRecord.getFirstName(), medicalRecord.getLastName());
 			if (medicalRecordToDelete != null) {
-				if(!medicalRecordService.delete(medicalRecordToDelete)) {
+				boolean resultDelete = medicalRecordService.delete(medicalRecordToDelete);
+				personService.getPerson(medicalRecord.getFirstName(), medicalRecord.getLastName()).setMedicalRecord(null);		
+				if(resultDelete == false) {
 					LOGGER.error("Cannot delete this medical record, an error occurred");
 
 					return new ResponseEntity<String>(
 							"Cannot delete this medical record, an error occurred", HttpStatus.CONFLICT);
 				}
-				LOGGER.info("Cannot delete this person, an error occurred");
+				LOGGER.info("MedicalRecord has been deleted");
 				return new ResponseEntity<String>(
-						"" + medicalRecord.getFirstName() + " " + medicalRecord.getLastName() + " has been deleted", HttpStatus.OK);
+						"Medical Record of " + medicalRecord.getFirstName() + " " + medicalRecord.getLastName() + " has been deleted", HttpStatus.OK);
 
 			}
 			LOGGER.error("Cannot delete a non existing medical record");
